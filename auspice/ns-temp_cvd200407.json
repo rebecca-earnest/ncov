@@ -422,14 +422,6 @@
             "#F09E75"
           ],
           [
-            "New York",
-            "#19AE77"
-          ],
-          [
-            "Connecticut",
-            "#8FEECB"
-          ],
-          [
             "Texas",
             "#651111"
           ],
@@ -446,20 +438,28 @@
             "#832626"
           ],
           [
-            "Washington",
+            "Utah",
             "#8D2D2D"
           ],
           [
-            "Utah",
+            "Idaho",
             "#973434"
           ],
           [
-            "Idaho",
+            "Oregon",
             "#A13B3B"
           ],
           [
-            "Oregon",
+            "Washington",
             "#AA4343"
+          ],
+          [
+            "New York",
+            "#19AE77"
+          ],
+          [
+            "Connecticut",
+            "#8FEECB"
           ],
           [
             "Wisconsin",
@@ -1332,8 +1332,8 @@
             "longitude": 5.2143865
           },
           "Washington": {
-            "latitude": 38.8948932,
-            "longitude": -77.0365529
+            "latitude": 47.468284,
+            "longitude": -120.49162
           },
           "Waterloo": {
             "latitude": 50.7153727,
