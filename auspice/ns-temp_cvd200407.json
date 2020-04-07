@@ -17,19 +17,19 @@
         "scale": [
           [
             "Oceania",
-            "#88BB6C"
-          ],
-          [
-            "Southeastern Asia",
             "#F075C7"
           ],
           [
+            "Southeastern Asia",
+            "#C775F0"
+          ],
+          [
             "Eastern Asia",
-            "#B275F0"
+            "#8A75F0"
           ],
           [
             "Western Africa",
-            "#7575F0"
+            "#758AF0"
           ],
           [
             "Northern Europe",
@@ -59,24 +59,32 @@
         "key": "country",
         "scale": [
           [
-            "Singapore",
-            "#8D2D6D"
+            "Australia",
+            "#A63F84"
           ],
           [
-            "Vietnam",
-            "#BE519A"
-          ],
-          [
-            "Malaysia",
+            "New Zealand",
             "#F075C7"
           ],
           [
+            "Singapore",
+            "#6D2D8D"
+          ],
+          [
+            "Vietnam",
+            "#9A51BE"
+          ],
+          [
+            "Malaysia",
+            "#C775F0"
+          ],
+          [
             "China",
-            "#B275F0"
+            "#8A75F0"
           ],
           [
             "Senegal",
-            "#7575F0"
+            "#758AF0"
           ],
           [
             "Northern Europe",
@@ -171,59 +179,59 @@
         "scale": [
           [
             "Queensland",
-            "#741B57"
+            "#812462"
           ],
           [
             "New South Wales",
-            "#8D2D6D"
-          ],
-          [
-            "Victoria",
             "#A63F84"
           ],
           [
+            "Victoria",
+            "#CB5AA5"
+          ],
+          [
             "Otago",
-            "#BE519A"
-          ],
-          [
-            "Singapore",
-            "#D763B0"
-          ],
-          [
-            "Kuala Lumpur",
             "#F075C7"
           ],
           [
+            "Singapore",
+            "#843FA6"
+          ],
+          [
+            "Kuala Lumpur",
+            "#C775F0"
+          ],
+          [
             "Guangdong",
-            "#481B74"
+            "#2B1B74"
           ],
           [
             "Zhejiang",
-            "#5D2D8D"
+            "#3E2D8D"
           ],
           [
             "Sichuan",
-            "#723FA6"
+            "#513FA6"
           ],
           [
             "Hubei",
-            "#8751BE"
+            "#6451BE"
           ],
           [
             "Shanghai",
-            "#9C63D7"
+            "#7763D7"
           ],
           [
             "China",
-            "#B275F0"
+            "#8A75F0"
           ],
           [
             "Thies",
-            "#3F3FA6"
+            "#3F51A6"
           ],
           [
             "St-Louis",
-            "#7575F0"
+            "#758AF0"
           ],
           [
             "Wales",
@@ -447,7 +455,7 @@
           ],
           [
             "New York",
-            "#90D4EE"
+            "#19AE77"
           ],
           [
             "Connecticut",
@@ -482,35 +490,35 @@
         "scale": [
           [
             "Gold Coast",
-            "#812462"
+            "#8D2D6D"
           ],
           [
             "Sydney",
-            "#A63F84"
+            "#BE519A"
           ],
           [
             "Melbourne",
-            "#CB5AA5"
-          ],
-          [
-            "Singapore",
             "#F075C7"
           ],
           [
+            "Singapore",
+            "#C775F0"
+          ],
+          [
             "Guangzhou",
-            "#522481"
+            "#342481"
           ],
           [
             "Hangzhou",
-            "#723FA6"
+            "#513FA6"
           ],
           [
             "Chengdu",
-            "#925ACB"
+            "#6D5ACB"
           ],
           [
             "Wuhan",
-            "#B275F0"
+            "#8A75F0"
           ],
           [
             "South Yorkshire",
