@@ -730,9 +730,9 @@
     ],
     "display_defaults": {
       "branch_label": "clade",
-      "color_by": "clade",
+      "color_by": "region",
       "distance_measure": "div",
-      "geo_resolution": "division",
+      "geo_resolution": "location",
       "map_triplicate": true
     },
     "filters": [
