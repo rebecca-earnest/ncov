@@ -63,11 +63,12 @@ ns-temp/
 
 ### Preparing the input data
 
-Explain what these tests test and why
-
-```
-Give an example
-```
+Files in the `pre-analyses` directory need to be downloaded from distinct sources, as shown below.
+|              File              |                                              Source                                             |
+|:------------------------------:|:-----------------------------------------------------------------------------------------------:|
+| gisaid_cov2020_sequences.fasta |         Downloaded from GISAID (all complete genomes submitted after December 1st, 2019)        |
+|        new_genomes.fasta       | Lab generated genomes, with headers formatted as ">Yale-00X", downloaded from the Lab's Dropbox |
+|    COVID-19_sequencing.xlsx    |                     Metadata spreadsheet downloaded from Google Spreadsheets                    |
 
 ### And coding style tests
 
