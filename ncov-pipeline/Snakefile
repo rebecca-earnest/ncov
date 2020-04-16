@@ -1,5 +1,3 @@
-from os import environ
-
 rule all:
     input:
         auspice = "auspice/ns-temp_cvd.json",
