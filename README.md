@@ -42,20 +42,20 @@ ns-temp/
 │
 ├── config/
 │ ├── auspice_config.json
-│ ├── cache_coordinates.tsv # TSV file with preexisting latitudes and longitudes
+│ ├── cache_coordinates.tsv → TSV file with preexisting latitudes and longitudes
 │ ├── clades.tsv
-│ ├── colour_grid.html # HTML file with HEX colour matrices
+│ ├── colour_grid.html → HTML file with HEX colour matrices
 │ ├── dropped_strains.txt
-│ ├── geoscheme.xml # XML file with geographic scheme
-│ ├── keep.txt # TXT file with accession number of genomes to be included in the analysis
-│ ├── nextstrain.yaml # YAML file used to install dependencies
+│ ├── geoscheme.xml → XML file with geographic scheme
+│ ├── keep.txt → TXT file with accession number of genomes to be included in the analysis
+│ ├── nextstrain.yaml → YAML file used to install dependencies
 │ ├── reference.gb
-│ └── remove.txt # TXT file with IDs of genomes to be removed
+│ └── remove.txt → TXT file with IDs of genomes to be removed
 │
 ├── pre-analyses/
-│ ├── gisaid_cov2020_sequences.fasta # FASTA file with latest genomes from GISAID
-│ ├── new_genomes.fasta # FASTA file with newly sequenced genomes
-│ └── COVID-19_sequencing.xlsx # Custom lab metadata file
+│ ├── gisaid_cov2020_sequences.fasta → FASTA file with latest genomes from GISAID
+│ ├── new_genomes.fasta → FASTA file with newly sequenced genomes
+│ └── COVID-19_sequencing.xlsx → Custom lab metadata file
 │
 └── README.md
 ```
