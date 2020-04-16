@@ -5,7 +5,7 @@ Repository with files related to ongoing SARS-CoV-2 phylogenetic analyses at [Gr
 
 ## Getting Started
 
-The `ncov-pipeline` directory contains scripts for running pre-analyses to prepare sequence and metadata files for running `augur` and `auspice`, and run the `nextstrain` pipeline itself.
+This repository contains scripts for running pre-analyses to prepare sequence and metadata files for running `augur` and `auspice`, and run the `nextstrain` pipeline itself.
 
 
 ### Dependencies
@@ -15,7 +15,7 @@ To be able to run the pipeline determined by the `Snakefile`, one needs to set u
 
 ### Setting up a new conda environment
 
-Follow the steps below to set up a conda environment for running the `ncov-pipeline`
+Follow the steps below to set up a conda environment for running the pipeline.
 
 Access a directory or choice in your local machine:
 ```
