@@ -1,6 +1,6 @@
 # Nextstrain updates
 
-Repository with temporary files related to ongoing SARS-CoV-2 phylogenetic analyses at Grubaugh Lab.
+Repository with files related to ongoing SARS-CoV-2 phylogenetic analyses at [Grubaugh Lab](grubaughlab.com).
 
 
 ## Getting Started
@@ -10,7 +10,7 @@ The `ncov-pipeline` directory contains scripts for running pre-analyses to prepa
 
 ### Dependencies
 
-To be able to run the pipeline described in the `Snakefile`, one will need to set up an extended `conda` nextstrain environment, which will deploy all dependencies (modules and packages) required by the python scripts located at the `scripts` directory.
+To be able to run the pipeline described in the `Snakefile`, one will need to set up an extended `conda` nextstrain environment, which will deploy all dependencies (modules and packages) required by the python scripts located at the `scripts` directory. Check each individual script in that directory to know what each of them do along the workflow.
 
 
 ### Setting up a new conda environment
