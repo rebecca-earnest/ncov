@@ -1,6 +1,6 @@
 # Nextstrain updates
 
-Repository with temporary files related to ongoing phylogenetic analyses at Grubaugh Lab.
+Repository with temporary files related to ongoing SARS-CoV-2 phylogenetic analyses at Grubaugh Lab.
 
 
 ## Getting Started
