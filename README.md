@@ -36,7 +36,7 @@ conda env update --file nextstrain.yaml
 This command will install all necessary dependencies to run the pipeline.
 
 
-### Preparing the working directory
+## Preparing the working directory
 
 This minimal set of files and directories are expected in the working directory.
 
@@ -74,6 +74,8 @@ Files in the `pre-analyses` directory need to be downloaded from distinct source
 |    COVID-19_sequencing.xlsx    |                     Metadata spreadsheet downloaded from Google Spreadsheets                    |
 
 
+## Running the pipeline
+
 ### Generating nextstrain metadata
 
 By running the command below, the appropriate files `sequences.fasta`, and `metadata.tsv` will be created inside a `data` directory, and the TSV files `colors.tsv` and `latlongs.tsv` will be created inside the `config` directory.
@@ -82,12 +84,36 @@ By running the command below, the appropriate files `sequences.fasta`, and `meta
 snakemake preanalyses
 ```
 
-## Running augur
+### Running augur
 
 By running the command below, the rest of the pipeline will executed
 ```
 snakemake export
 ```
+
+### Removing previous results
+
+By running the command below files related to previous analyses in the working directory will be removed.
+```
+snakemake clean
+```
+
+Such command will remove the following files and directories:
+```
+results
+auspice
+data
+config/colors.tsv
+config/latlongs.tsv
+```
+
+### Deleting input files after a successful run
+
+This command will delete the directory `pre-analyses`:
+```
+snakemake delete
+```
+
 
 ## New versions
 
