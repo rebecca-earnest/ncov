@@ -22,14 +22,14 @@ Access a directory or choice in your local machine:
 cd 'your/directory/of/choice'
 ```
 
-Clone the present repository `ns-temp`
+Clone the present repository `ncov`
 ```
-git clone https://github.com/andersonbrito/ns-temp.git
+git clone https://github.com/andersonbrito/ncov.git
 ```
 
-Rename the directory `ns-temp` as you wish. Access the newly generated directory in your local machine, change directory to `config`, and update your existing nextstrain environment as shown below:
+Rename the directory `ncov` as you wish. Access the newly generated directory in your local machine, change directory to `config`, and update your existing nextstrain environment as shown below:
 ```
-cd 'your/directory/of/choice/ns-temp/config'
+cd 'your/directory/of/choice/ncov/config'
 conda env update --file nextstrain.yaml
 ```
 
@@ -41,7 +41,7 @@ This command will install all necessary dependencies to run the pipeline.
 This minimal set of files and directories are expected in the working directory.
 
 ```
-ns-temp/
+ncov/
 │
 ├── config/
 │ ├── auspice_config.json
