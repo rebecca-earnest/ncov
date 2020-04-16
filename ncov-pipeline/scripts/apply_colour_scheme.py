@@ -28,7 +28,6 @@ if __name__ == '__main__':
     output = args.output
 
 
-    # path = "/Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/20200413_update3b/preanalyses/"
     # metadata = path + 'metadata_geo.tsv'
     # coordinates = path + 'lat_longs.tsv'
     # geoscheme = path + 'geoscheme.xml'

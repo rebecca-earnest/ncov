@@ -21,7 +21,6 @@ if __name__ == '__main__':
     outfile = args.output
 
 
-    # path = "/Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/20200413_update3b/preanalyses/"
     # genomes = path + "gisaid_cov2020_sequences.fasta"
     # new_genomes = path + "yale_genomes.fasta"
     # keep = path + 'keep.txt'

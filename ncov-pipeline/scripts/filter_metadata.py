@@ -27,7 +27,6 @@ if __name__ == '__main__':
     output3 = args.output3
 
 
-    # path = "/Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/20200413_update3b/preanalyses/"
     # genomes = path + 'sequences_temp.fasta'
     # metadata1 = path + 'metadata.tsv'
     # metadata2 = path + 'COVID-19 sequencing.xlsx'

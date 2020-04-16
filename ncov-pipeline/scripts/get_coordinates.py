@@ -26,7 +26,6 @@ if __name__ == '__main__':
     cache = args.cache
     output = args.output
 
-    # path = "/Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/20200413_update3b/preanalyses/"
     # metadata = path + 'metadata_geo.tsv'
     # geoscheme = path + "geoscheme.xml"
     # columns = ['region', 'country', 'division', 'location']

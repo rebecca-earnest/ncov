@@ -19,7 +19,6 @@ if __name__ == '__main__':
     geoscheme = args.geoscheme
     output = args.output
 
-    # path = "/Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/20200413_update3b/preanalyses/"
     # metadata = path + 'metadata_filtered.tsv'
     # geoscheme = path + "geoscheme.xml"
     # output = path + 'metadata_geo.tsv'
