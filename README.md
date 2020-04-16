@@ -5,7 +5,7 @@ Repository with files related to ongoing SARS-CoV-2 phylogenetic analyses at [Gr
 
 ## Getting Started
 
-This repository contains scripts for running pre-analyses to prepare sequence and metadata files for running `augur` and `auspice`, and run the `nextstrain` pipeline itself.
+This repository contains scripts for running pre-analyses to prepare sequence and metadata files for running `augur` and `auspice`, and for running the `nextstrain` pipeline itself.
 
 
 ### Dependencies
