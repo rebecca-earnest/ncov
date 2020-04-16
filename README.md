@@ -46,14 +46,14 @@ ncov/
 ├── config/
 │ ├── auspice_config.json
 │ ├── cache_coordinates.tsv 	→ TSV file with preexisting latitudes and longitudes
-│ ├── clades.tsv
+│ ├── clades.tsv 			→ TSV file with clade-defining mutations
 │ ├── colour_grid.html 		→ HTML file with HEX colour matrices
-│ ├── dropped_strains.txt
+│ ├── dropped_strains.txt	→ TXT file with IDs of sequences to be dropped along the run
 │ ├── geoscheme.xml 		→ XML file with geographic scheme
 │ ├── keep.txt 			→ TXT file with accession number of genomes to be included in the analysis
 │ ├── nextstrain.yaml 		→ YAML file used to install dependencies
-│ ├── reference.gb
-│ └── remove.txt 		→ TXT file with IDs of genomes to be removed
+│ ├── reference.gb 		→ GenBank file with the reference genome
+│ └── remove.txt 		→ TXT file with IDs of genomes to be removed prior to the run
 │
 ├── pre-analyses/
 │ ├── gisaid_cov2020_sequences.fasta 	→ FASTA file with latest genomes from GISAID
