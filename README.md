@@ -2,13 +2,16 @@
 
 Repository with temporary files related to ongoing phylogenetic analyses at Grubaugh Lab.
 
+
 ## Getting Started
 
 The `ncov-pipeline` directory contains scripts for running pre-analyses to prepare sequence and metadata files for running `augur` and `auspice`.
 
+
 ### Dependencies
 
 To be able to run the pipeline described in the `Snakefile`, one will need to set up an extended `conda` nextstrain environment, which will deploy all dependencies (modules and packages) required by the python scripts located at the `scripts` directory.
+
 
 ### Setting up a new conda environment
 
@@ -67,48 +70,29 @@ Files in the `pre-analyses` directory need to be downloaded from distinct source
 |              File              |                                              Source                                             |
 |:------------------------------:|:-----------------------------------------------------------------------------------------------:|
 | gisaid_cov2020_sequences.fasta |         Downloaded from GISAID (all complete genomes submitted after 01-12-2019)        |
-|        new_genomes.fasta       | Lab generated genomes, with headers formatted as ">Yale-00X", downloaded from the Lab's Dropbox |
+|        new_genomes.fasta       | Newly sequenced genomes, with headers formatted as ">Yale-00X", downloaded from the Lab's Dropbox |
 |    COVID-19_sequencing.xlsx    |                     Metadata spreadsheet downloaded from Google Spreadsheets                    |
 
-### And coding style tests
 
-Explain what these tests test and why
+### Generating nextstrain metadata
+
+By running the command below, the appropriate files `sequences.fasta`, and `metadata.tsv` will be created inside a `data` directory, and the TSV files `colors.tsv` and `latlongs.tsv` will be created inside the `config` directory.
 
 ```
-Give an example
+snakemake preanalyses
 ```
 
-## Deployment
+## Running augur
 
-Add additional notes about how to deploy this on a live system
+By running the command below, the rest of the pipeline will executed
+```
+snakemake export
+```
 
-## Built With
+## New versions
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+The scripts in this pipeline will be updated as needed. Re-download this repository (`git clone...`) whenever a new analysis has to be done, to ensure the latest scripts are being used.
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
-
-## Authors
+---
 
 * **Anderson Brito** - [WebPage](https://andersonbrito.github.io/) - andersonfbrito@gmail.com
-
-## License
-
-This project is licensed under the MIT License.
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
-
-<!---
---->
