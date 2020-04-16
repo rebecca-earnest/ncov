@@ -66,7 +66,7 @@ ns-temp/
 Files in the `pre-analyses` directory need to be downloaded from distinct sources, as shown below.
 |              File              |                                              Source                                             |
 |:------------------------------:|:-----------------------------------------------------------------------------------------------:|
-| gisaid_cov2020_sequences.fasta |         Downloaded from GISAID (all complete genomes submitted after December 1st, 2019)        |
+| gisaid_cov2020_sequences.fasta |         Downloaded from GISAID (all complete genomes submitted after 01-12-2019)        |
 |        new_genomes.fasta       | Lab generated genomes, with headers formatted as ">Yale-00X", downloaded from the Lab's Dropbox |
 |    COVID-19_sequencing.xlsx    |                     Metadata spreadsheet downloaded from Google Spreadsheets                    |
 
