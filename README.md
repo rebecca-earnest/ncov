@@ -43,7 +43,7 @@ This minimal set of files and directories are expected in the working directory.
 ```
 ncov/
 │
-├── auspice/ # directory where the input for auspice will be stored
+├── auspice/ 			→ directory where the input for auspice will be stored
 │
 ├── config/
 │ ├── auspice_config.json	→ JSON file used to create the file used by auspice
