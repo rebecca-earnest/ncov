@@ -54,7 +54,7 @@ ncov/
 │ ├── geoscheme.xml 		→ XML file with geographic scheme
 │ ├── keep.txt 			→ TXT file with accession number of genomes to be included in the analysis
 │ ├── nextstrain.yaml 		→ YAML file used to install dependencies
-│ ├── reference.gb 		→ GenBank file with the reference genome
+│ ├── reference.gb 		→ GenBank file of a reference genome
 │ └── remove.txt 		→ TXT file with IDs of genomes to be removed prior to the run
 │
 ├── pre-analyses/
