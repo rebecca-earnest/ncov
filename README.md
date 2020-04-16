@@ -58,8 +58,8 @@ ncov/
 │ └── remove.txt 		→ TXT file with IDs of genomes to be removed prior to the run
 │
 ├── pre-analyses/
-│ ├── gisaid_cov2020_sequences.fasta 	→ FASTA file with latest genomes from GISAID
-│ ├── new_genomes.fasta 		→ FASTA file with newly sequenced genomes
+│ ├── gisaid_cov2020_sequences.fasta 	→ FASTA file with the latest genomes from GISAID
+│ ├── new_genomes.fasta 		→ FASTA file with the lab's newly sequenced genomes
 │ └── COVID-19_sequencing.xlsx 		→ Custom lab metadata file
 │
 └── README.md
