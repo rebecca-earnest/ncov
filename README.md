@@ -50,7 +50,7 @@ ns-temp/
 │ ├── colour_grid.html 		→ HTML file with HEX colour matrices
 │ ├── dropped_strains.txt
 │ ├── geoscheme.xml 		→ XML file with geographic scheme
-│ ├── keep.txt 		→ TXT file with accession number of genomes to be included in the analysis
+│ ├── keep.txt 			→ TXT file with accession number of genomes to be included in the analysis
 │ ├── nextstrain.yaml 		→ YAML file used to install dependencies
 │ ├── reference.gb
 │ └── remove.txt 		→ TXT file with IDs of genomes to be removed
