@@ -1,42 +1,67 @@
-# Project Title
+# Nextstrain updates
 
-One Paragraph of project description goes here
+Repository with temporary files related to ongoing phylogenetic analyses at Grubaugh Lab.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+The `ncov-pipeline` directory contains scripts for running pre-analyses to prepare sequence and metadata files for running `augur` and `auspice`.
 
-### Prerequisites
+### Dependencies
 
-What things you need to install the software and how to install them
+To be able to run the pipeline described in the `Snakefile`, one will need to set up an extended `conda` nextstrain environment, which will deploy all dependencies (modules and packages) required by the python scripts located at the `scripts` directory.
 
+### Setting up a new conda environment
+
+Follow the steps below to set up a conda environment for running the `ncov-pipeline`
+
+Access a directory or choice in your local machine:
 ```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
+cd 'your/directory/of/choice'
 ```
 
-And repeat
+Clone the present repository `ns-temp`
+```
+git clone https://github.com/andersonbrito/ns-temp.git
+```
+
+Rename the directory `ns-temp` as you wish. Access the newly generated directory in your local machine, change directory to `config`, and update your existing nextstrain environment as shown below:
+```
+cd 'your/directory/of/choice/ns-temp/config'
+conda env update --file nextstrain.yaml
+```
+
+This command will install all necessary dependencies to run the pipeline.
+
+
+### Preparing the working directory
+
+This minimal set of files and directories are expected in the working directory.
 
 ```
-until finished
+ns-temp/
+│
+├── config/
+│ ├── auspice_config.json
+│ ├── cache_coordinates.tsv # TSV file with preexisting latitudes and longitudes
+│ ├── clades.tsv
+│ ├── colour_grid.html # HTML file with HEX colour matrices
+│ ├── dropped_strains.txt
+│ ├── geoscheme.xml # XML file with geographic scheme
+│ ├── keep.txt # TXT file with accession number of genomes to be included in the analysis
+│ ├── nextstrain.yaml # YAML file used to install dependencies
+│ ├── reference.gb
+│ └── remove.txt # TXT file with IDs of genomes to be removed
+│
+├── pre-analyses/
+│ ├── gisaid_cov2020_sequences.fasta # FASTA file with latest genomes from GISAID
+│ ├── new_genomes.fasta # FASTA file with newly sequenced genomes
+│ └── COVID-19_sequencing.xlsx # Custom lab metadata file
+│
+└── README.md
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
+### Preparing the input data
 
 Explain what these tests test and why
 
@@ -68,7 +93,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
 ## Authors
 
