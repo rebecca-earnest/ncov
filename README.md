@@ -120,5 +120,6 @@ snakemake delete
 The scripts in this pipeline will be updated as needed. Re-download this repository (`git clone...`) whenever a new analysis has to be done, to ensure the latest scripts are being used.
 
 ---
+## Author
 
 * **Anderson Brito** - [WebPage](https://andersonbrito.github.io/) - andersonfbrito@gmail.com
