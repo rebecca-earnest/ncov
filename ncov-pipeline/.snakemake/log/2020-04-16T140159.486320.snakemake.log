@@ -1,0 +1,114 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	align
+	1	all
+	1	ancestral
+	1	clades
+	1	export
+	1	filter
+	1	mask
+	1	refine
+	1	traits
+	1	translate
+	1	tree
+	11
+
+[Thu Apr 16 14:01:59 2020]
+Job 14: 
+        Filtering to
+          - excluding strains in config/dropped_strains.txt
+        
+
+[Thu Apr 16 14:02:01 2020]
+Finished job 14.
+1 of 11 steps (9%) done
+
+[Thu Apr 16 14:02:01 2020]
+Job 11: 
+        Aligning sequences to config/reference.gb
+          - filling gaps with N
+        
+
+[Thu Apr 16 14:03:16 2020]
+Finished job 11.
+2 of 11 steps (18%) done
+
+[Thu Apr 16 14:03:16 2020]
+Job 13: 
+        Mask bases in alignment
+          - masking 130 from beginning
+          - masking 50 from end
+          - masking other sites: 18529 29849 29851 29853
+        
+
+[Thu Apr 16 14:03:16 2020]
+Finished job 13.
+3 of 11 steps (27%) done
+
+[Thu Apr 16 14:03:16 2020]
+Job 10: Building tree
+
+[Thu Apr 16 14:03:21 2020]
+Finished job 10.
+4 of 11 steps (36%) done
+
+[Thu Apr 16 14:03:21 2020]
+Job 2: 
+        Refining tree
+          - estimate timetree
+          - use skyline coalescent timescale
+          - estimate marginal node dates
+        
+
+[Thu Apr 16 14:05:35 2020]
+Finished job 2.
+5 of 11 steps (45%) done
+
+[Thu Apr 16 14:05:35 2020]
+Job 5: Reconstructing ancestral sequences and mutations
+
+[Thu Apr 16 14:05:42 2020]
+Finished job 5.
+6 of 11 steps (55%) done
+
+[Thu Apr 16 14:05:42 2020]
+Job 6: Translating amino acid sequences
+
+[Thu Apr 16 14:05:45 2020]
+Finished job 6.
+7 of 11 steps (64%) done
+
+[Thu Apr 16 14:05:45 2020]
+Job 9:  Labeling clades as specified in config/clades.tsv
+
+[Thu Apr 16 14:05:46 2020]
+Finished job 9.
+8 of 11 steps (73%) done
+
+[Thu Apr 16 14:05:46 2020]
+Job 4: Inferring ancestral traits for region country
+
+[Thu Apr 16 14:05:50 2020]
+Finished job 4.
+9 of 11 steps (82%) done
+
+[Thu Apr 16 14:05:50 2020]
+Job 1: Exporting data files for for auspice
+
+[Thu Apr 16 14:05:52 2020]
+Finished job 1.
+10 of 11 steps (91%) done
+
+[Thu Apr 16 14:05:52 2020]
+localrule all:
+    input: auspice/ns-temp_cvd.json
+    jobid: 0
+
+[Thu Apr 16 14:05:52 2020]
+Finished job 0.
+11 of 11 steps (100%) done
+Complete log: /Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/20200416_update2/.snakemake/log/2020-04-16T140159.486320.snakemake.log

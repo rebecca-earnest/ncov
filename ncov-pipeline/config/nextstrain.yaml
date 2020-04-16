@@ -1,0 +1,22 @@
+name: nextstrain
+channels:
+- bioconda
+- conda-forge
+- defaults
+dependencies:
+- cvxopt
+- fasttree
+- iqtree
+- mafft
+- python=3.6*
+- pandas
+- beautifulsoup4
+- geopy
+- raxml
+- pip
+- pip:
+  - git+https://github.com/nextstrain/augur@master
+  - rethinkdb
+  - pycountry_convert
+  - xlrd
+  - lxml

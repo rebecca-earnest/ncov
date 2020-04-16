@@ -1,0 +1,2 @@
+SyntaxError in line 459 of /Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/20200416_update2/Snakefile:
+Command must be given as string after the shell keyword. (Snakefile, line 459)

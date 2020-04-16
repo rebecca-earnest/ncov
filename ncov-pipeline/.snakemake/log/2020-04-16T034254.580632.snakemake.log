@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingInputException in line 408 of /Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/template/Snakefile:
+Missing input files for rule clades:
+config/clades.tsv

@@ -1,0 +1,48 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	ancestral
+	1	clades
+	1	export
+	1	traits
+	1	translate
+	5
+
+[Thu Apr 16 03:59:38 2020]
+Job 4: Reconstructing ancestral sequences and mutations
+
+[Thu Apr 16 03:59:52 2020]
+Finished job 4.
+1 of 5 steps (20%) done
+
+[Thu Apr 16 03:59:52 2020]
+Job 5: Translating amino acid sequences
+
+[Thu Apr 16 03:59:58 2020]
+Finished job 5.
+2 of 5 steps (40%) done
+
+[Thu Apr 16 03:59:58 2020]
+Job 8:  Labeling clades as specified in config/clades.tsv
+
+[Thu Apr 16 03:59:59 2020]
+Finished job 8.
+3 of 5 steps (60%) done
+
+[Thu Apr 16 03:59:59 2020]
+Job 3: Inferring ancestral traits for region country
+
+[Thu Apr 16 04:00:08 2020]
+Finished job 3.
+4 of 5 steps (80%) done
+
+[Thu Apr 16 04:00:08 2020]
+Job 0: Exporting data files for for auspice
+
+[Thu Apr 16 04:00:10 2020]
+Finished job 0.
+5 of 5 steps (100%) done
+Complete log: /Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/template/.snakemake/log/2020-04-16T035938.688736.snakemake.log

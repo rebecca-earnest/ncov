@@ -1,0 +1,3 @@
+NameError in line 214 of /Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/template/Snakefile:
+name 'dropped_strains' is not defined
+  File "/Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/template/Snakefile", line 214, in <module>

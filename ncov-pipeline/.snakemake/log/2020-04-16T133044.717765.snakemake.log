@@ -1,0 +1,24 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	clean
+	1
+
+[Thu Apr 16 13:30:44 2020]
+Job 0: Removing directories: results  auspice data config/colors.tsv config/latlongs.tsv
+
+[Thu Apr 16 13:30:44 2020]
+Error in rule clean:
+    jobid: 0
+    shell:
+        
+		rm -rfv results  auspice data config/colors.tsv config/latlongs.tsv
+		"" > config/cache_coordinates.tsv
+		
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/20200416_update2/.snakemake/log/2020-04-16T133044.717765.snakemake.log
