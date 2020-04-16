@@ -10,7 +10,7 @@ The `ncov-pipeline` directory contains scripts for running pre-analyses to prepa
 
 ### Dependencies
 
-To be able to run the pipeline determined by the `Snakefile`, one needs to set up an extended `conda` nextstrain environment, which will deploy all dependencies (modules and packages) required by the python scripts located at the `scripts` directory. Check each individual script in that directory to know what each of them do along the workflow.
+To be able to run the pipeline determined by the `Snakefile`, one needs to set up an extended `conda` nextstrain environment, which will deploy all dependencies (modules and packages) required by the python scripts located at the `scripts` directory. Check each individual script in that directory to know what they do along the workflow.
 
 
 ### Setting up a new conda environment
@@ -44,9 +44,9 @@ This minimal set of files and directories are expected in the working directory.
 ncov/
 │
 ├── config/
-│ ├── auspice_config.json
+│ ├── auspice_config.json	→ JSON file used to create the file used by auspice
 │ ├── cache_coordinates.tsv 	→ TSV file with preexisting latitudes and longitudes
-│ ├── clades.tsv 			→ TSV file with clade-defining mutations
+│ ├── clades.tsv 		→ TSV file with clade-defining mutations
 │ ├── colour_grid.html 		→ HTML file with HEX colour matrices
 │ ├── dropped_strains.txt	→ TXT file with IDs of sequences to be dropped along the run
 │ ├── geoscheme.xml 		→ XML file with geographic scheme
@@ -69,16 +69,16 @@ ncov/
 Files in the `pre-analyses` directory need to be downloaded from distinct sources, as shown below.
 |              File              |                                              Source                                             |
 |:------------------------------:|:-----------------------------------------------------------------------------------------------:|
-| gisaid_cov2020_sequences.fasta |         Downloaded from GISAID (all complete genomes submitted after 01-12-2019)        |
-|        new_genomes.fasta       | Newly sequenced genomes, with headers formatted as ">Yale-00X", downloaded from the Lab's Dropbox |
-|    COVID-19_sequencing.xlsx    |                     Metadata spreadsheet downloaded from Google Spreadsheets                    |
+| gisaid_cov2020_sequences.fasta |         Downloaded from GISAID (all complete genomes submitted from 2019-Dec-01)        |
+|        new_genomes.fasta       | Newly sequenced genomes, with headers formatted as ">Yale-XXX", downloaded from the Lab's Dropbox |
+|    COVID-19_sequencing.xlsx    |                     Metadata spreadsheet downloaded from an internal Google Sheet                    |
 
 
 ## Running the pipeline
 
-### Generating nextstrain metadata
+### Generating augur input data
 
-By running the command below, the appropriate files `sequences.fasta`, and `metadata.tsv` will be created inside a `data` directory, and the TSV files `colors.tsv` and `latlongs.tsv` will be created inside the `config` directory.
+By running the command below, the appropriate files `sequences.fasta` and `metadata.tsv` will be created inside the `data` directory, and the TSV files `colors.tsv` and `latlongs.tsv` will be created inside the `config` directory:
 
 ```
 snakemake preanalyses
@@ -86,14 +86,14 @@ snakemake preanalyses
 
 ### Running augur
 
-By running the command below, the rest of the pipeline will executed
+By running the command below, the rest of the pipeline will be executed:
 ```
 snakemake export
 ```
 
 ### Removing previous results
 
-By running the command below files related to previous analyses in the working directory will be removed.
+By running the command below files related to previous analyses in the working directory will be removed:
 ```
 snakemake clean
 ```
@@ -107,9 +107,9 @@ config/colors.tsv
 config/latlongs.tsv
 ```
 
-### Deleting input files after a successful run
+### Deleting temporary input files after a successful run
 
-This command will delete the directory `pre-analyses`:
+This command will delete the directory `pre-analyses` and its large files:
 ```
 snakemake delete
 ```
@@ -117,9 +117,9 @@ snakemake delete
 
 ## New versions
 
-The scripts in this pipeline will be updated as needed. Re-download this repository (`git clone...`) whenever a new analysis has to be done, to ensure the latest scripts are being used.
+The code in `scripts` will be updated as needed. Re-download this repository (`git clone...`) whenever a new analysis has to be done, to ensure the latest scripts are being used.
 
 ---
 ## Author
 
-* **Anderson Brito** - [WebPage](https://andersonbrito.github.io/) - andersonfbrito@gmail.com
+* **Anderson Brito** - [WebPage](https://andersonbrito.github.io/) - anderson.brito@yale.edu
