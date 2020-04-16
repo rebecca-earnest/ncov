@@ -1,3 +1,0 @@
-NameError in line 432 of /Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/template/Snakefile:
-name 'lat_longs' is not defined
-  File "/Users/anderson/GLab Dropbox/Anderson Brito/projects/ncov/nextstrain/template/Snakefile", line 432, in <module>
