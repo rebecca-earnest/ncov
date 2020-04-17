@@ -1,6 +1,6 @@
 rule all:
     input:
-        auspice = "auspice/ns-temp_cvd.json",
+        auspice = "auspice/ncov_update.json",
 
 # Triggers the pre-analyses
 rule preanalyses:

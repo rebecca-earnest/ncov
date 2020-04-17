@@ -7,12 +7,13 @@ dependencies:
 - cvxopt
 - fasttree
 - iqtree
+- raxml
 - mafft
 - python=3.6*
 - pandas
 - beautifulsoup4
 - geopy
-- raxml
+- biopython
 - pip
 - pip:
   - git+https://github.com/nextstrain/augur@master
