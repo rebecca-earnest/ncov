@@ -14,7 +14,6 @@ dependencies:
 - beautifulsoup4
 - geopy
 - biopython
-- numpy
 - pip
 - pip:
   - git+https://github.com/nextstrain/augur@master
@@ -22,3 +21,4 @@ dependencies:
   - pycountry_convert
   - xlrd
   - lxml
+  - numpy
