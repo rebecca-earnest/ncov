@@ -215,7 +215,7 @@ if __name__ == '__main__':
         lstNewMetadata = lstNewMetadata + list(dRow.values())
 
     # write new metadata files
-    outputDF = pd.DataFrame(lstNewMetadata)
+    outputDF = pd.DataFrame(lstNewMetadata, columns=[lColumns])
     outputDF.to_csv(output1, sep='\t', index=False)
 
     # write renaming file
