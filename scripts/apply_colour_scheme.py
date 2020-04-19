@@ -408,7 +408,7 @@ if __name__ == '__main__':
             for place, hexcolour in entries.items():
                 if place in force_colour:
                     hexcolour = force_colour[place]
-                    print('________________________ ' + place + ' is set with the colour ' + hexcolour)
+                    print('* ' + place + ' was forcefully set with the colour ' + hexcolour)
                 line = "{}\t{}\t{}\n".format(trait, place, hexcolour.upper())
                 outfile.write(line)
             outfile.write('\n')
