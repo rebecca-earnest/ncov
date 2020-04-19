@@ -22,7 +22,7 @@ Access a directory or choice in your local machine:
 cd 'your/directory/of/choice'
 ```
 
-Clone the present repository `ncov`
+Clone this repository `ncov`
 ```
 git clone https://github.com/andersonbrito/ncov.git
 ```
