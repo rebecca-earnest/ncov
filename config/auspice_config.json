@@ -2,7 +2,8 @@
   "title": "Yale SARS-CoV-2 Genome Surveillance Initiative",
   "build_url": "https://github.com/grubaughlab/CT-SARS-CoV-2",
   "maintainers": [
-    {"name": "Anderson Brito & Grubaugh Lab", "url": "https://grubaughlab.com/"}
+    {"name": "Maintained by Cole Jensen and Anderson Brito (Grubaugh Lab)",
+     "url": "https://grubaughlab.com/"}
   ],
   "colorings": [
 
@@ -44,9 +45,9 @@
     "region"
   ],
   "display_defaults": {
-    "color_by": "region",
+    "color_by": "division",
     "distance_measure": "div",
-    "geo_resolution": "location",
+    "geo_resolution": "division",
     "map_triplicate": true,
     "branch_label": "clade"
   },
