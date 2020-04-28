@@ -80,35 +80,36 @@ Files in the `pre-analyses` directory need to be downloaded from distinct source
 Notes:
 1. FASTA file containing all samples sequenced by the lab, including newly sequenced genomes
 2. This Excel spreadsheet must have the following columns, named as shown below:
-   Sample-ID → lab samples unique identifier, as described below
-   Collection-date
-   Country
-   State → state acronym
-   Division  → state full name
-   City
-   Host
-   Source → lab source of the viral samples
-   Update
+
+- Sample-ID → lab samples unique identifier, as described below
+- Collection-date
+- Country
+- State *→ state acronym*
+- Division  *→ state full name*
+- City
+- Host
+- Source *→ lab source of the viral samples*
+- Update
 
 #### Adapting the Python scripts
 A few lines in the scripts `add_newgenomes.py` ans `filter_metadata.py` need to be changed to match your lab's sample naming and origin.
 
 Lines to be changed in `add_newgenomes.py`:
-   Lines 45, 56 and 81: `**"Yale-"**` must match the unique identifier, only found in your lab's genome IDs. Ours is set (in bold) as follows: hCoV-19/USA/**CT-Yale-001**/2020
+- Lines 45, 56 and 81: `**"Yale-"**` must match the unique identifier, only found in your lab's genome IDs. Ours is set (in bold) as follows: hCoV-19/USA/**CT-Yale-001**/2020
 
 
 Lines to be changed in `filter_metadata.py`:
-   Line 77: `sheet_name` must be changed to match your Excel sheet name
+- Line 77: `sheet_name` must be changed to match your Excel sheet name
 
-   Lines 91 and 142: Same as described above, `**"Yale-"**:` must match the unique identifier, only found in your lab's genome IDs. Ours is set (in bold) as follows: hCoV-19/USA/**CT-Yale-001**/2020
+- Lines 91 and 142: Same as described above, **"Yale-"** must match the unique identifier, only found in your lab's genome IDs. Ours is set (in bold) as follows: hCoV-19/USA/**CT-Yale-001**/2020
 
-   Lines 156 and 179: change these lines to match the country of origin (alpha-3 ISO code)
+- Lines 156 and 179: change these lines to match the country of origin (alpha-3 ISO code)
 
-   Lines 153 and 169: change these lines to match the name and acronym of the most likely state of origin of the samples, if the 'State' field is unknown
+- Lines 153 and 169: change these lines to match the name and acronym of the most likely state of origin of the samples, if the 'State' field is unknown
 
-   Line 187: change this line to match you lab's name
+- Line 187: change this line to match you lab's name
 
-   Line 188: change this line to match you lab's main author's name
+- Line 188: change this line to match you lab's main author's name
 
 ## Running the pipeline
 
