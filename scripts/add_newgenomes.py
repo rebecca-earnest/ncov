@@ -20,7 +20,7 @@ if __name__ == '__main__':
     remove = args.remove
     outfile = args.output
 
-
+    path =
     # genomes = path + "gisaid_cov2020_sequences.fasta"
     # new_genomes = path + "yale_genomes.fasta"
     # keep = path + 'keep.txt'
@@ -93,6 +93,8 @@ if __name__ == '__main__':
     for id in mismatch:
         print(str(m) + '. ' + id)
         m += 1
+    if len(mismatch) < 1:
+        print('\tNo mismatches found...')
 
 
     # excluding sequences
@@ -112,3 +114,4 @@ if __name__ == '__main__':
     print(str(len(newly_sequenced)) + ' newly sequenced genomes were added')
     print(str(len(remove_sequences)) + ' genomes were REMOVED according to remove.txt\n')
     print(str(len(exported)) + ' genomes included in FINAL dataset\n')
+    
