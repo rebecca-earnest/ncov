@@ -82,8 +82,7 @@ Notes:
 
 ² This Excel spreadsheet must have the following columns, named as shown below:
 
-- Sample-ID *→ lab samples unique identifier, as described below
-8
+- Sample-ID *→ lab samples unique identifier, as described below*
 - Collection-date
 - Country
 - State *→ state acronym*
