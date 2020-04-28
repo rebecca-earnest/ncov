@@ -95,7 +95,7 @@ Notes:
 A few lines in the scripts `add_newgenomes.py` ans `filter_metadata.py` need to be changed to match your lab's sample naming and origin.
 
 Lines to be changed in `add_newgenomes.py`:
-- Lines 45, 56 and 81: `**"Yale-"**` must match the unique identifier, only found in your lab's genome IDs. Ours is set (in bold) as follows: hCoV-19/USA/**CT-Yale-001**/2020
+- Lines 45, 56 and 81: **"Yale-"** must match the unique identifier, only found in your lab's genome IDs. Ours is set (in bold) as follows: hCoV-19/USA/**CT-Yale-001**/2020
 
 
 Lines to be changed in `filter_metadata.py`:
