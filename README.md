@@ -80,46 +80,35 @@ Files in the `pre-analyses` directory need to be downloaded from distinct source
 Notes:
 1.
 2. This Excel spreadsheet must have the following columns, named as shown below:
-<li>Sample-ID</li>
-<li>Collection-date</li>
-<li>Country</li>
-<li>State</li>
-<li>Division</li>
-<li>City</li>
-<li>Host</li>
-<li>Source</li>
-<li>Update</li>
+   Sample-ID
+   Collection-date
+   Country
+   State
+   Division
+   City
+   Host
+   Source
+   Update
 
 #### Adapting the Python scripts
-A few lines in the scripts `add_newgenomes.py` ans `filter_metadata.py` need to be changed to match the naming system in place in your lab.
+A few lines in the scripts `add_newgenomes.py` ans `filter_metadata.py` need to be changed to match your lab's sample naming and origin.
 
 Lines to be changed in `add_newgenomes.py`:
-<li>Lines 45, 56 and 81: `**"Yale-"**:` → "Yale-" must match the unique identifier, only found in your lab's genome IDs. Ours is set (in bold) as follows: hCoV-19/USA/**CT-Yale-001**/2020</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
+   Lines 45, 56 and 81: `**"Yale-"**` must match the unique identifier, only found in your lab's genome IDs. Ours is set (in bold) as follows: hCoV-19/USA/**CT-Yale-001**/2020
 
 
 Lines to be changed in `filter_metadata.py`:
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
-<li>xxx</li>
+   Line 77: `sheet_name` must be changed to match your Excel sheet name
 
+   Lines 91 and 142: Same as described above, `**"Yale-"**:` must match the unique identifier, only found in your lab's genome IDs. Ours is set (in bold) as follows: hCoV-19/USA/**CT-Yale-001**/2020
 
+   Lines 156 and 179: change these lines to match the country of origin (alpha-3 ISO code)
 
+   Lines 153 and 169: change these lines to match the name and acronym of the most likely state of origin of the samples, if the 'State' field is unknown
+
+   Line 187: change this line to match you lab's name
+
+   Line 188: change this line to match you lab's main author's name
 
 ## Running the pipeline
 
