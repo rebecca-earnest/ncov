@@ -89,7 +89,7 @@ Notes:<br />
 - City
 - Host
 - Source *→ lab source of the viral samples*
-- Update
+- Update *→ number of the genome release, if new genomes are released in a regular basis*
 
 #### Adapting the Python scripts
 A few lines in the scripts `add_newgenomes.py` ans `filter_metadata.py` need to be changed to match your lab's sample naming and origin.
@@ -99,7 +99,7 @@ Lines to be changed in `add_newgenomes.py`:
 
 
 Lines to be changed in `filter_metadata.py`:
-- Line 77: `sheet_name` must be changed to match your Excel sheet name
+- Line 77: `sheet_name` must be changed to match the sheet tab name (without spaces), inside the Excel file
 
 - Lines 91 and 142: Same as described above, **"Yale-"** must match the unique identifier, only found in your lab's genome IDs. Ours is set (in bold) as follows: hCoV-19/USA/**CT-Yale-001**/2020
 
