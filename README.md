@@ -78,10 +78,11 @@ Files in the `pre-analyses` directory need to be downloaded from distinct source
 
 
 Notes:
-1. FASTA file containing all samples sequenced by the lab, including newly sequenced genomes
-2. This Excel spreadsheet must have the following columns, named as shown below:
+¹ FASTA file containing all genomes sequenced by the lab, including newly sequenced genomes
+² This Excel spreadsheet must have the following columns, named as shown below:
 
-- Sample-ID → lab samples unique identifier, as described below
+- Sample-ID *→ lab samples unique identifier, as described below
+8
 - Collection-date
 - Country
 - State *→ state acronym*
