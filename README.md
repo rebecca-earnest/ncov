@@ -72,8 +72,53 @@ Files in the `pre-analyses` directory need to be downloaded from distinct source
 |              File              |                                              Source                                             |
 |:------------------------------:|:-----------------------------------------------------------------------------------------------:|
 | gisaid_cov2020_sequences.fasta |         Downloaded from GISAID (all complete genomes submitted from 2019-Dec-01)        |
-|        new_genomes.fasta       | Newly sequenced genomes, with headers formatted as ">Yale-XXX", downloaded from the Lab's Dropbox |
-|    COVID-19_sequencing.xlsx    |                     Metadata spreadsheet downloaded from an internal Google Sheet                    |
+|        new_genomes.fasta¹       | Newly sequenced genomes, with headers formatted as ">Yale-XXX", downloaded from the Lab's Dropbox |
+|    COVID-19_sequencing.xlsx²    |                     Metadata spreadsheet downloaded from an internal Google Sheet                    |
+
+
+
+Notes:
+1.
+2. This Excel spreadsheet must have the following columns, named as shown below:
+<li>Sample-ID</li>
+<li>Collection-date</li>
+<li>Country</li>
+<li>State</li>
+<li>Division</li>
+<li>City</li>
+<li>Host</li>
+<li>Source</li>
+<li>Update</li>
+
+#### Adapting the Python scripts
+A few lines in the scripts `add_newgenomes.py` ans `filter_metadata.py` need to be changed to match the naming system in place in your lab.
+
+Lines to be changed in `add_newgenomes.py`:
+<li>Lines 45, 56 and 81: `**"Yale-"**:` → "Yale-" must match the unique identifier, only found in your lab's genome IDs. Ours is set (in bold) as follows: hCoV-19/USA/**CT-Yale-001**/2020</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+
+
+Lines to be changed in `filter_metadata.py`:
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+<li>xxx</li>
+
+
 
 
 ## Running the pipeline
