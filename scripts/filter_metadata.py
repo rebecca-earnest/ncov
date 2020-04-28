@@ -76,9 +76,9 @@ if __name__ == '__main__':
 
     # Lab genomes metadata
     dfL = pd.read_excel(metadata2, index_col=None, header=0, sheet_name='Amplicon_Sequencing',
-                        converters={'Yale ID*': str, 'Collection-date*': str, 'Update*': str})
+                        converters={'Yale ID': str, 'Collection-date': str, 'Update': str})
     dfL.fillna('?', inplace = True)
-    dfL.set_index("Yale ID*", inplace=True)
+    dfL.set_index("Yale ID", inplace=True)
 
 
     dHeaders = {}
@@ -150,29 +150,29 @@ if __name__ == '__main__':
                 if id in dfL.index:
                     fields = {column: '' for column in lColumns}
                     row = dfL.loc[id]
-                    if row['State*'] == '?':
+                    if row['State'] == '?':
                         code = 'CT'
                     else:
-                        code = row['State*']
+                        code = row['State']
                     strain = 'USA/' + code + '-' + id + '/2020' # revert to nextstrain strain name
 
                     if strain not in found:
                         gisaid_epi_isl = '?'
                         genbank_accession = '?'
-                        if len(str(row['Collection-date*'])) > 1:
-                            date = row['Collection-date*'].split(' ')[0].replace('.', '-')
+                        if len(str(row['Collection-date'])) > 1:
+                            date = row['Collection-date'].split(' ')[0].replace('.', '-')
                         else:
                             date = '?'
-                        country = row['Country*']
+                        country = row['Country']
 
-                        division = row['Division*']
-                        if row['Division*'] == '?':
+                        division = row['Division']
+                        if row['Division'] == '?':
                             code = 'Connecticut'
                         else:
-                            code = row['Division*']
+                            code = row['Division']
 
-                        if len(str(row['City*'])) > 1:
-                            location = row['City*'].replace('-', ' ')
+                        if len(str(row['City'])) > 1:
+                            location = row['City'].replace('-', ' ')
                         else:
                             location = '?'
                         region_exposure = '?'
@@ -183,12 +183,12 @@ if __name__ == '__main__':
                             length = str(len(sequences[strain]))
                         except:
                             length = str(len(sequences[id]))
-                        host = row['Host*']
-                        originating_lab = row['Source*']
+                        host = row['Host']
+                        originating_lab = row['Source']
                         submitting_lab = 'Grubaugh Lab - Yale School of Public Health'
                         authors = 'Fauver et al'
                         url = '?'
-                        update = 'Update' + str('0' * (2 - len(row['Update*']))) + row['Update*']
+                        update = 'Update' + str('0' * (2 - len(row['Update']))) + row['Update']
                         if update == 'Update00':
                             update = 'Initial'
 
