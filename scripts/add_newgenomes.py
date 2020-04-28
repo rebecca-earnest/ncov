@@ -42,7 +42,7 @@ if __name__ == '__main__':
         # print(id)
         id = id.replace('hCoV-19/', '').split('|')[0]
         if id not in newly_sequenced.keys(): # avoid potential duplicates
-            if "Yale-" not in id:
+            if "Yale-" not in id: # change this line to match you lab's unique identifier
                 all_sequences[id] = str(seq)
 
     # create a list of sequences to be added in all instances
@@ -53,7 +53,7 @@ if __name__ == '__main__':
             id = id.strip()
             if id not in newly_sequenced.keys():
                 if id not in keep_sequences.keys():
-                    if 'Yale-' not in id:
+                    if 'Yale-' not in id: # change this line to match you lab's unique identifier
                         try:
                             keep_sequences[id] = all_sequences[id]
                         except:
@@ -78,7 +78,7 @@ if __name__ == '__main__':
                 entry = ">" + id + "\n" + sequences[id].upper() + "\n"
                 exported.append(id)
                 output.write(entry)
-                if 'Yale-' in id:
+                if 'Yale-' in id: # change this line to match you lab's unique identifier
                     print('* ' + str(c) + '. ' + id)
                 else:
                     print(str(c) + '. ' + id)
@@ -113,3 +113,4 @@ if __name__ == '__main__':
     print(str(len(newly_sequenced)) + ' newly sequenced genomes were added')
     print(str(len(remove_sequences)) + ' genomes were REMOVED according to remove.txt\n')
     print(str(len(exported)) + ' genomes included in FINAL dataset\n')
+    

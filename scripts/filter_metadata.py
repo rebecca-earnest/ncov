@@ -68,14 +68,13 @@ if __name__ == '__main__':
         pass
     dfN['update'] = '?'
     dfN.fillna('?', inplace=True)
-    # dfN.astype(str)
     lColumns = dfN.columns.values # list of column in the original metadata file
     fix_names = {'LiÃ¨ge': 'Liege', 'Auvergne-RhÃ´ne-Alpes': 'Auvergne-Rhone-Alpes', 'CompiÃ¨gne': 'Compiegne',
                  'Bourgogne-France-ComtÃÂÃÂ©': 'Bourgogne-Franche-Comté', 'Meudon la ForÃÂÃÂªt': 'Meudon la Foret',
                  'SmÃÂÃÂ¥land': 'Smaland', 'GraubÃÂÃÂ¼nden': 'Graubunden'}
 
     # Lab genomes metadata
-    dfL = pd.read_excel(metadata2, index_col=None, header=0, sheet_name='Amplicon_Sequencing',
+    dfL = pd.read_excel(metadata2, index_col=None, header=0, sheet_name='Amplicon_Sequencing', # `sheet_name` must be changed to match your Excel sheet name
                         converters={'Sample-ID': str, 'Collection-date': str, 'Update': str}) # this need to be tailored to your lab's naming system
     dfL.fillna('?', inplace = True)
     dfL.set_index("Sample-ID", inplace=True)
@@ -151,10 +150,10 @@ if __name__ == '__main__':
                     fields = {column: '' for column in lColumns}
                     row = dfL.loc[id]
                     if row['State'] == '?':
-                        code = 'CT'
+                        code = 'CT' # change this line to match the acronym of the most likely state of origin if the 'State' field is unknown
                     else:
                         code = row['State']
-                    strain = 'USA/' + code + '-' + id + '/2020' # revert to nextstrain strain name
+                    strain = 'USA/' + code + '-' + id + '/2020' # change this line to match the country of origin (alpha-3 ISO code)
 
                     if strain not in found:
                         gisaid_epi_isl = '?'
@@ -167,7 +166,7 @@ if __name__ == '__main__':
 
                         division = row['Division']
                         if row['Division'] == '?':
-                            code = 'Connecticut'
+                            code = 'Connecticut' # change this line to match the most likely state of origin if the 'Division' field is unknown
                         else:
                             code = row['Division']
 
@@ -177,7 +176,7 @@ if __name__ == '__main__':
                             location = '?'
                         region_exposure = '?'
                         country_exposure = '?'
-                        iso = 'USA'
+                        iso = 'USA' # change this line to match the country of origin (alpha-3 ISO code)
                         division_exposure = '?'
                         try:
                             length = str(len(sequences[strain]))
@@ -185,12 +184,10 @@ if __name__ == '__main__':
                             length = str(len(sequences[id]))
                         host = row['Host']
                         originating_lab = row['Source']
-                        submitting_lab = 'Grubaugh Lab - Yale School of Public Health'
-                        authors = 'Fauver et al'
+                        submitting_lab = 'Grubaugh Lab - Yale School of Public Health' # change this line to match you lab's name
+                        authors = 'Fauver et al' # change this line to match you lab's main author's name
                         url = '?'
                         update = 'Update' + str('0' * (2 - len(row['Update']))) + row['Update']
-                        if update == 'Update00':
-                            update = 'Initial'
 
                         lValues = [strain, gisaid_epi_isl, genbank_accession, date, iso, country, division,
                                    location, region_exposure, country_exposure, division_exposure, length, host, originating_lab,
