@@ -76,9 +76,9 @@ if __name__ == '__main__':
 
     # Lab genomes metadata
     dfL = pd.read_excel(metadata2, index_col=None, header=0, sheet_name='Amplicon_Sequencing',
-                        converters={'Yale ID': str, 'Collection-date': str, 'Update': str})
+                        converters={'Sample-ID': str, 'Collection-date': str, 'Update': str}) # this need to be tailored to your lab's naming system
     dfL.fillna('?', inplace = True)
-    dfL.set_index("Yale ID", inplace=True)
+    dfL.set_index("Sample-ID", inplace=True)
 
 
     dHeaders = {}
