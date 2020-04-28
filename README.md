@@ -78,16 +78,16 @@ Files in the `pre-analyses` directory need to be downloaded from distinct source
 
 
 Notes:
-1.
+1. FASTA file containing all samples sequenced by the lab, including newly sequenced genomes
 2. This Excel spreadsheet must have the following columns, named as shown below:
-   Sample-ID
+   Sample-ID → lab samples unique identifier, as described below
    Collection-date
    Country
-   State
-   Division
+   State → state acronym
+   Division  → state full name
    City
    Host
-   Source
+   Source → lab source of the viral samples
    Update
 
 #### Adapting the Python scripts
