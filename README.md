@@ -1,6 +1,6 @@
-# Nextstrain updates
+# Nextstrain template directory
 
-Repository with files related to ongoing SARS-CoV-2 phylogenetic analyses at [Grubaugh Lab](grubaughlab.com).
+Repository with basic files to reproduce SARS-CoV-2 phylogenetic analyses done by [Grubaugh Lab](grubaughlab.com).
 
 
 ## Getting Started
