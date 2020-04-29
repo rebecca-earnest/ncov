@@ -56,3 +56,6 @@ USA/CruiseA-7/2020
 USA/CruiseA-8/2020
 USA/CruiseA-9/2020
 USA/UPHL-01/2020
+
+# CT outliers
+USA/CT-UW-5043/2020

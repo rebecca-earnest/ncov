@@ -4,7 +4,8 @@ A.1	ORF1b	1464	C
 A.1.2	nuc	10771	C
 A.2	N	197	L
 
-A.4	ORF1b	972	I
+A.4	nuc	8	A
+A.4	nuc	16381	A
 A.5	nuc	26088	T
 
 B.1	ORF1b	314	L
