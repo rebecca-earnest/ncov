@@ -14,7 +14,7 @@ rule preanalyses:
 # Define file names
 rule files:
 	params:
-		original_dataset = "pre-analyses/gisaid_cov2020_sequences.fasta",
+		original_dataset = "pre-analyses/gisaid_hcov-19.fasta",
 		new_genomes = "pre-analyses/new_genomes.fasta",
 		full_metadata = "pre-analyses/metadata_nextstrain.tsv",
 		metadata_lab = "pre-analyses/COVID-19_sequencing.xlsx",
