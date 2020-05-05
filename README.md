@@ -71,7 +71,7 @@ ncov/
 Files in the `pre-analyses` directory need to be downloaded from distinct sources, as shown below.
 |              File              |                                              Source                                             |
 |:------------------------------:|:-----------------------------------------------------------------------------------------------:|
-| gisaid_cov2020_sequences.fasta |         Downloaded from GISAID (all complete genomes submitted from 2019-Dec-01)        |
+| gisaid_hcov-19.fasta |         Downloaded from GISAID (all complete genomes submitted from 2019-Dec-01)        |
 |        new_genomes.fasta¹       | Newly sequenced genomes, with headers formatted as ">Yale-XXX", downloaded from the Lab's Dropbox |
 |    COVID-19_sequencing.xlsx²    |                     Metadata spreadsheet downloaded from an internal Google Sheet                    |
 
