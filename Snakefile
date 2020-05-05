@@ -445,7 +445,6 @@ rule clean:
 	shell:
 		"""
 		rm -rfv {params}
-		> config/cache_coordinates.tsv
 		"""
 
 
