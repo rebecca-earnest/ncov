@@ -149,6 +149,7 @@ if __name__ == '__main__':
                 if id in dfL.index:
                     fields = {column: '' for column in lColumns}
                     row = dfL.loc[id]
+                    
                     if row['State'] == '?':
                         code = 'CT' # change this line to match the acronym of the most likely state of origin if the 'State' field is unknown
                     else:
