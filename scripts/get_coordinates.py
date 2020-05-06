@@ -5,7 +5,7 @@ import argparse
 from bs4 import BeautifulSoup as BS
 import numpy as np
 
-geolocator = Nominatim(user_agent="email@gmail.com")
+geolocator = Nominatim(user_agent="email@gmail.com") # add your email here
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
