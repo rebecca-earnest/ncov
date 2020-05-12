@@ -88,8 +88,6 @@ if __name__ == '__main__':
         # check nextstrain metadata first
         dRow = {}
         if id in dfN['strain'].to_list() and 'Yale-' not in id:
-
-            print('Exporting metadata for ' + id)
             fields = {column: '' for column in lColumns}
             row = dfN.loc[lambda dfN: dfN['strain'] == id]
 
@@ -136,6 +134,7 @@ if __name__ == '__main__':
 
             dRow[id] = fields
             found.append(strain)
+            print('Exporting metadata for ' + id)
 
         # check lab's metadata otherwise
         if id not in dRow.keys():
