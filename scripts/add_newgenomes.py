@@ -20,8 +20,8 @@ if __name__ == '__main__':
     remove = args.remove
     outfile = args.output
 
-    # genomes = path + "gisaid_cov2020_sequences.fasta"
-    # new_genomes = path + "yale_genomes.fasta"
+    # genomes = path + "gisaid_hcov-19.fasta"
+    # new_genomes = path + "new_genomes.fasta"
     # keep = path + 'keep.txt'
     # remove = path + "remove.txt"
     # outfile = path + "sequences_temp.fasta"
@@ -113,4 +113,3 @@ if __name__ == '__main__':
     print(str(len(newly_sequenced)) + ' newly sequenced genomes were added')
     print(str(len(remove_sequences)) + ' genomes were REMOVED according to remove.txt\n')
     print(str(len(exported)) + ' genomes included in FINAL dataset\n')
-    

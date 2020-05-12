@@ -15,30 +15,25 @@ if __name__ == '__main__':
     parser.add_argument("--metadata", required=True, help="Nextstrain metadata file")
     parser.add_argument("--geoscheme", required=True, help="XML file with geographic schemes")
     parser.add_argument("--columns", nargs='+', type=str,  help="list of columns that need coordinates")
-    parser.add_argument("--cache", required=False,  help="list preexisting latitudes and longitudes")
+    parser.add_argument("--cache", required=False,  help="TSV file with preexisting latitudes and longitudes")
     parser.add_argument("--output", required=True, help="TSV file containing geographic coordinates")
     args = parser.parse_args()
 
     metadata = args.metadata
     geoscheme = args.geoscheme
     columns = args.columns
-    # columns = [field for field in args.columns[0].split()]
     cache = args.cache
     output = args.output
 
+
     # metadata = path + 'metadata_geo.tsv'
-    # geoscheme = path + "geoscheme.xml"
+    # geoscheme = path + "geoscheme.tsv"
     # columns = ['region', 'country', 'division', 'location']
     # cache = path + 'cache.tsv'
     # output = path + 'lat_longs.tsv'
 
 
     force_coordinates = {'Washington': ('47.468284', '-120.491620')}
-
-
-    infile = open(geoscheme, "r").read()
-    soup = BS(infile, 'xml')
-
     results = {trait: {} for trait in columns} # content to be exported as final result
 
     # extract coordinates from cache file
@@ -56,26 +51,30 @@ if __name__ == '__main__':
         pass
 
     # extract coordinates from XML file
+    scheme_list = open(geoscheme, "r").readlines()[1:]
     dont_search = []
     set_countries = []
-    levels = soup.find('levels')
-    for trait in columns:
-        if levels.find(trait):
-            content = levels.find(trait)
-            for area in content.find_all('area'):
+    for line in scheme_list:
+        if not line.startswith('\n'):
+            type = line.split('\t')[0]
+            if type in columns:
                 coordinates = {}
                 try:
-                    area_name = area['id'] # name of the pre-defined region in the XML file
-                    entry = {area_name: (area['lat'], area['long'])}
+                    subarea = line.split('\t')[2] # name of the pre-defined area in the TSV file
+                    lat = line.split('\t')[3]
+                    long = line.split('\t')[4]
+                    entry = {subarea: (lat, long)}
                     coordinates.update(entry)
-                    if area_name not in results[trait]:
-                        results[trait].update(coordinates)
-                        dont_search.append(area_name)
-                        country_name = area_name.split('-')[0]
-                        if trait == 'country' and country_name not in set_countries:
-                            set_countries.append(country_name)
+
+                    if subarea not in results[type]:
+                        results[type].update(coordinates)
+                        dont_search.append(subarea)
+                    country_name = subarea.split('-')[0]
+                    if type == 'country' and country_name not in set_countries:
+                        set_countries.append(country_name)
                 except:
                     pass
+
 
     # find coordinates for locations not found in cache or XML file
     def find_coordinates(place):
@@ -91,6 +90,7 @@ if __name__ == '__main__':
     # open metadata file as dataframe
     dfN = pd.read_csv(metadata, encoding='ISO-8859-1', sep='\t')
 
+
     queries = []
     pinpoints = [dfN[trait].values.tolist() for trait in columns if trait != 'region']
     for address in zip(*pinpoints):
@@ -101,16 +101,16 @@ if __name__ == '__main__':
             queries.append((level, query))
 
     not_found = []
-    for unknown_location in queries:
-        trait, location = unknown_location[0], unknown_location[1]
-        target = location[-1]
+    for unknown_place in queries:
+        trait, place = unknown_place[0], unknown_place[1]
+        target = place[-1]
         if target not in ['?', '', 'NA', 'NAN', 'unknown', '-', np.nan, None]:
             if target not in results[trait]:
                 new_query = []
-                for name in location:
+                for name in place:
                     try:
                         if name.split('-')[0] in set_countries:
-                            new_query.append(name.split('-')[0]) # correcting XML pre-defined country names
+                            name = name.split('-')[0] # correcting TSV pre-defined country names
                     except:
                         pass
                     if name not in dont_search:
@@ -119,7 +119,7 @@ if __name__ == '__main__':
                 item = (trait, ', '.join(new_query))
                 coord = ('?', '?')
                 if item not in not_found:
-                    coord = find_coordinates(new_query)
+                    coord = find_coordinates(new_query) # search coordinates
                 if '?' in coord:
                     if item not in not_found:
                         not_found.append(item)
@@ -128,6 +128,7 @@ if __name__ == '__main__':
                     print(trait + ', ' + target + '. Coordinates = ' + ', '.join(coord))
                     entry = {target: coord}
                     results[trait].update(entry)
+
 
     print('\n### These coordinates were found and saved in the output file:')
     with open(output, 'w') as outfile:
@@ -146,7 +147,7 @@ if __name__ == '__main__':
 
     if len(not_found) > 1:
         print('\n### WARNING! Some coordinates were not found (see below).'
-              '\nTypos or especial characters on place name my explain such errors.'
+              '\nTypos or especial characters in place names my explain such errors.'
               '\nPlease fix them, and run the script again, or add coordinates manually:\n')
         for trait, address in not_found:
             print(trait + ': ' + address)

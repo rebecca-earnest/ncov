@@ -1,8 +1,8 @@
-from bs4 import BeautifulSoup as BS
 import pycountry_convert as pyCountry
 import pycountry
 import pandas as pd
 import argparse
+from uszipcode import SearchEngine
 
 
 if __name__ == '__main__':
@@ -20,12 +20,8 @@ if __name__ == '__main__':
     output = args.output
 
     # metadata = path + 'metadata_filtered.tsv'
-    # geoscheme = path + "geoscheme.xml"
+    # geoscheme = path + "geoscheme.tsv"
     # output = path + 'metadata_geo.tsv'
-
-    infile = open(geoscheme, "r").read()
-    soup = BS(infile, 'xml')
-    levels = soup.find('levels')
 
     # get ISO alpha3 country codes
     isos = {}
@@ -43,24 +39,34 @@ if __name__ == '__main__':
                     isos[country] = '?'
         return isos[country]
 
-    # locate subcontinental regions in geoscheme
+    # parse subcontinental regions in geoscheme
+    scheme_list = open(geoscheme, "r").readlines()[1:]
     geoLevels = {}
     c = 0
-    for column in levels.find_all('region'):
-        colName = column.name
-        for area in column.find_all('area'):
-            id = area['id']
-            for country in area.string.split(','):
-                iso = get_iso(country.strip())
-                geoLevels[iso] = id
+    for line in scheme_list:
+        if not line.startswith('\n'):
+            id = line.split('\t')[2]
+            type = line.split('\t')[0]
+            if type == 'region':
+                members = line.split('\t')[5].split(',') # elements inside the subarea
+                for country in members:
+                    iso = get_iso(country.strip())
+                    geoLevels[iso] = id
 
-    # locate subnational regions for countries in geoscheme
-    for column in levels.find_all('country'):
-        colName = column.name
-        for area in column.find_all('area'):
-            for state in area.string.split(','):
-                if state.strip() not in geoLevels.keys():
-                    geoLevels[state.strip()] = area['id']
+            # parse subnational regions for countries in geoscheme
+            if type == 'country':
+                members = line.split('\t')[5].split(',') # elements inside the subarea
+                for state in members:
+                    if state.strip() not in geoLevels.keys():
+                        geoLevels[state.strip()] = id
+
+            # parse subareas for states in geoscheme
+            if type == 'division':
+                members = line.split('\t')[5].split(',')  # elements inside the subarea
+                for zipcode in members:
+                    if zipcode.strip() not in geoLevels.keys():
+                        geoLevels[zipcode.strip()] = id
+
 
     # open metadata file as dataframe:
     dfN = pd.read_csv(metadata, encoding='ISO-8859-1', sep='\t')
@@ -71,13 +77,35 @@ if __name__ == '__main__':
     dfN['region'] = dfN['iso'].map(geoLevels) # add column region in metadata
 
 
-    # convert set of states into subnational regions
+    notfound = []
+    # convert sets of locations into sub-locations
+    search = SearchEngine(simple_zipcode=True)
     for idx, row in dfN.iterrows():
-        if dfN.loc[idx, 'division'] not in ['?', '', 'unknown']:
-            if dfN.loc[idx, 'division'] in geoLevels.keys():
+        # convert sets of states into subnational regions
+        division = dfN.loc[idx, 'division']
+        if division not in ['?', '', 'unknown']:
+            if division in geoLevels.keys():
                 dfN.loc[idx, 'country'] = geoLevels[dfN.loc[idx, 'division']]
-            else:
-                dfN.loc[idx, 'country'] = dfN.loc[idx, 'country']
+            # else:
+            #     dfN.loc[idx, 'country'] = dfN.loc[idx, 'country']
+
+        # convert sets of cities into sub-state regions
+        location = dfN.loc[idx, 'location']
+        if location not in ['?', '', 'unknown'] and division == 'Connecticut':
+            try:
+                res = search.by_city_and_state(location, "CT")
+                area_zip = res[0].zipcode
+                if area_zip in geoLevels.keys():
+                    dfN.loc[idx, 'location'] = geoLevels[area_zip]
+            except:
+                notfound.append(location)
+                dfN.loc[idx, 'location'] = '?'
+
+    # report errors
+    if len(notfound) > 0:
+        print('\nSome locations were not assigned to sub-locations, and were not exported. Check for typos.')
+        for entry in notfound:
+            print('- ' + entry)
 
     dfN.to_csv(output, sep='\t', index=False)
 print('\nMetadata file successfully reformatted applying geo-scheme!\n')

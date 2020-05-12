@@ -18,7 +18,10 @@ dependencies:
 - pip:
   - git+https://github.com/nextstrain/augur@master
   - rethinkdb
-  - pycountry_convert
+  - pycountry-convert
+  - pycountry
+  - uszipcode
   - xlrd
   - lxml
   - numpy
+  - matplotlib

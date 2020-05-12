@@ -30,21 +30,7 @@ rule files:
 
 
 
-
 files = rules.files.params
-
-
-# Download original, full metadata file from main nextstrain build
-rule download:
-	message: "Downloading metadata from nextstrain ncov github repository"
-	output:
-		# metadata = "pre-analyses/metadata_nextstrain.tsv",
-		metadata = files.full_metadata
-	shell:
-		"""
-		wget https://raw.githubusercontent.com/nextstrain/ncov/master/data/metadata.tsv
-		mv metadata.tsv {output.metadata}
-		"""
 
 
 rule add_sequences:
@@ -81,7 +67,7 @@ rule filter_metadata:
 		"""
 	input:
 		genomes = rules.add_sequences.output.sequences,
-		metadata1 = rules.download.output.metadata,
+		metadata1 = files.full_metadata,
 		metadata2 = files.metadata_lab
 	output:
 		filtered_metadata = "pre-analyses/metadata_filtered.tsv",

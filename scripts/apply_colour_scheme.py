@@ -4,6 +4,8 @@ import pandas as pd
 import argparse
 from bs4 import BeautifulSoup as BS
 import pycountry
+from matplotlib import cm
+import numpy as np
 
 
 if __name__ == '__main__':
@@ -29,14 +31,14 @@ if __name__ == '__main__':
 
     # metadata = path + 'metadata_geo.tsv'
     # coordinates = path + 'lat_longs.tsv'
-    # geoscheme = path + 'geoscheme.xml'
+    # geoscheme = path + 'geoscheme.tsv'
     # grid = path + 'colour_grid.html'
     # columns = ['region', 'country', 'division', 'location']
     # output = path + 'colors.tsv'
 
 
     # pre-determined HEX colours and hues
-    force_colour = {'Connecticut': '#8FEECB', 'New York': '#3CB191', 'Canada': '#663300'}
+    force_colour = {'Connecticut': '#8FEECB', 'New York': '#19ae77', 'Canada': '#663300'}
     force_hue = {'North America': 0, 'South America': 40}
 
     # content to be exported as final result
@@ -165,6 +167,8 @@ if __name__ == '__main__':
 
     ''' CONVERT RGB TO HEX COLOURS '''
 
+    # original source: https://bsou.io/posts/color-gradients-with-python
+
     # convert colour codes
     def RGB_to_hex(RGB):
         ''' [255,255,255] -> "#FFFFFF" '''
@@ -213,22 +217,24 @@ if __name__ == '__main__':
 
     ''' IMPORT GEOSCHEME '''
 
-    xml = BS(open(geoscheme, "r").read(), 'xml')
-    levels = xml.find('levels')
+    # xml = BS(open(geoscheme, "r").read(), 'xml')
+    # levels = xml.find('levels')
 
+    scheme_list = open(geoscheme, "r").readlines()[1:]
     sampled_region = [key for dict_ in ordered_regions.values() for key in dict_]
     geodata = {}
-    c = 0
-    for column in levels.find_all('region'):
-        colName = column.name
-        for area in column.find_all('area'):
-            continent = area['category']
-            region = area['id']
-            if region in sampled_region:
-                if continent not in geodata.keys():
-                    geodata[continent] = [region]
-                else:
-                    geodata[continent] += [region]
+
+    for line in scheme_list:
+        if not line.startswith('\n'):
+            type = line.split('\t')[0]
+            if type == 'region':
+                continent = line.split('\t')[1]
+                region = line.split('\t')[2]
+                if region in sampled_region:
+                    if continent not in geodata.keys():
+                        geodata[continent] = [region]
+                    else:
+                        geodata[continent] += [region]
 
 
 
@@ -299,6 +305,30 @@ if __name__ == '__main__':
 
 
 
+    ''' SET COLOUR SCHEME FOR UPDATES '''
+
+    # convert a hue value into an rgb colour, and then hex colour
+    def hue_to_rgb(hue):
+        colour = int(hue / 240 * 255)
+        # print(colour)
+        luminance = 0.5
+        rgb = [c * 255 * luminance for c in list(cm.jet(colour))[:-1]]
+        # print(rgb)
+        return RGB_to_hex(rgb)
+
+
+    list_updates = [up_number for up_number in sorted(set(dfN['update'].to_list())) if up_number != '?']
+    list_hex = list([hue_to_rgb(int(x)) for x in np.linspace(30, 240, len(list_updates)*2, endpoint=True)])
+    skip_hex = [h for n, h in enumerate(list_hex) if n in range(0, len(list_hex), 2)]
+
+    results = {trait: {} for trait in columns}
+    results['update'] = {}
+    for update, hex in zip(list_updates, skip_hex):
+        results['update'].update({update: hex})
+        print(update, hex)
+
+
+
     ''' APPLY SAME HUE FOR MEMBERS OF THE SAME SUB-CONTINENT '''
 
     # assign countries to regions
@@ -342,7 +372,6 @@ if __name__ == '__main__':
     ''' CREATE COLOUR GRADIENT '''
 
     # define gradients for regions
-    results = {trait: {} for trait in columns}
     for continent, regions in geodata.items():
         hex_limits = []
         for region in sampled_region:
@@ -408,9 +437,8 @@ if __name__ == '__main__':
             for place, hexcolour in entries.items():
                 if place in force_colour:
                     hexcolour = force_colour[place]
-                    print('* ' + place + ' was forcefully set with the colour ' + hexcolour)
+                    print('_____________________________ ' + place + ' is set with the colour ' + hexcolour)
                 line = "{}\t{}\t{}\n".format(trait, place, hexcolour.upper())
                 outfile.write(line)
             outfile.write('\n')
-
     print('\nOrdered colour file successfully created!\n')

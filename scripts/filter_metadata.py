@@ -26,14 +26,12 @@ if __name__ == '__main__':
     output2 = args.output2
     output3 = args.output3
 
-
     # genomes = path + 'sequences_temp.fasta'
-    # metadata1 = path + 'metadata.tsv'
-    # metadata2 = path + 'COVID-19 sequencing.xlsx'
+    # metadata1 = path + 'metadata_nextstrain.tsv'
+    # metadata2 = path + 'COVID-19_sequencing.xlsx'
     # output1 = path + 'metadata_filtered.tsv'
     # output2 = path + 'rename.tsv'
     # output3 = path + 'sequences.fasta'
-
 
     # create a dict of existing sequences
     sequences = {}
@@ -69,9 +67,6 @@ if __name__ == '__main__':
     dfN['update'] = '?'
     dfN.fillna('?', inplace=True)
     lColumns = dfN.columns.values # list of column in the original metadata file
-    fix_names = {'LiÃ¨ge': 'Liege', 'Auvergne-RhÃ´ne-Alpes': 'Auvergne-Rhone-Alpes', 'CompiÃ¨gne': 'Compiegne',
-                 'Bourgogne-France-ComtÃÂÃÂ©': 'Bourgogne-Franche-Comté', 'Meudon la ForÃÂÃÂªt': 'Meudon la Foret',
-                 'SmÃÂÃÂ¥land': 'Smaland', 'GraubÃÂÃÂ¼nden': 'Graubunden'}
 
     # Lab genomes metadata
     dfL = pd.read_excel(metadata2, index_col=None, header=0, sheet_name='Amplicon_Sequencing', # `sheet_name` must be changed to match your Excel sheet name
@@ -79,6 +74,9 @@ if __name__ == '__main__':
     dfL.fillna('?', inplace = True)
     dfL.set_index("Sample-ID", inplace=True)
 
+    fix_names = {'LiÃ¨ge': 'Liege', 'Auvergne-RhÃ´ne-Alpes': 'Auvergne-Rhone-Alpes', 'CompiÃ¨gne': 'Compiegne', 'CompiÃÂÃÂ¨': 'Compi3gne',
+                 'Bourgogne-France-ComtÃÂÃÂ©': 'Bourgogne-Franche-Comté', 'Meudon la ForÃÂÃÂªt': 'Meudon la Foret',
+                 'SmÃÂÃÂ¥land': 'Smaland', 'GraubÃÂÃÂ¼nden': 'Graubunden'}
 
     dHeaders = {}
     notFound = []
@@ -110,6 +108,10 @@ if __name__ == '__main__':
             if len(division) < 2:
                 division = country
 
+            location = row.location.values[0]
+            if division != 'Connecticut': # assign 'division' name to 'location', to discretize locations of non-target areas
+                location = division
+
             iso = get_iso(country)
             row.iso.values[0] = iso # needed for exporting a renaming file
             date = row.date.values[0]
@@ -121,13 +123,11 @@ if __name__ == '__main__':
                 # print(id)
                 if value in ['', np.nan, None]:
                     value = '?'
+
                 # fix names
                 if field == 'division':
                     if row.division.values[0].strip() in fix_names.keys():
                         value = fix_names[row.division.values[0].strip()]
-                if field == 'location':
-                    if row.location.values[0].strip() in fix_names.keys():
-                        value = fix_names[row.location.values[0].strip()]
 
                 fields[field] = value
             if country == '':
@@ -146,10 +146,10 @@ if __name__ == '__main__':
                 except:
                     if id not in lab_label.keys():
                         lab_label[id] = ''
+
                 if id in dfL.index:
                     fields = {column: '' for column in lColumns}
                     row = dfL.loc[id]
-                    
                     if row['State'] == '?':
                         code = 'CT' # change this line to match the acronym of the most likely state of origin if the 'State' field is unknown
                     else:
@@ -171,10 +171,14 @@ if __name__ == '__main__':
                         else:
                             code = row['Division']
 
-                        if len(str(row['City'])) > 1:
-                            location = row['City'].replace('-', ' ')
+                        location = str(row['State_region'])
+                        if len(location) > 1:
+                            if division != 'Connecticut':  # assign 'division' name to 'location', to discretize locations of non-target areas
+                                location = division
                         else:
                             location = '?'
+
+
                         region_exposure = '?'
                         country_exposure = '?'
                         iso = 'USA' # change this line to match the country of origin (alpha-3 ISO code)
@@ -220,7 +224,6 @@ if __name__ == '__main__':
     with open(output2, 'w') as outfile2:
         # export new metadata lines
         for id, header in dHeaders.items():
-            # print(id)
             outfile2.write(id + '\t' + header + '\n')
         for id in notFound:
             print('\t* Warning! No metadata found for ' + id)
@@ -239,15 +242,10 @@ if __name__ == '__main__':
                     outfile3.write(entry)
                     print('* Exporting newly sequenced genome and metadata for ' + id)
                     exported.append(lab_label[id])
-                    # print(lab_label[id])
-
             else:
                 if id not in exported:
                     entry = '>' + id + '\n' + sequence + '\n'
                     outfile3.write(entry)
                     exported.append(id)
-                    # print(id)
-
-
 
 print('\nMetadata file successfully reformatted and exported!\n')
