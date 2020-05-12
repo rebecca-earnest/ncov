@@ -171,7 +171,7 @@ if __name__ == '__main__':
                         else:
                             code = row['Division']
 
-                        location = str(row['State_region'])
+                        location = str(row['Location'])
                         if len(location) > 1:
                             if division != 'Connecticut':  # assign 'division' name to 'location', to discretize locations of non-target areas
                                 location = division
