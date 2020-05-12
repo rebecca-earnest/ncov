@@ -29,7 +29,7 @@ if __name__ == '__main__':
 #     geoscheme = path + "geoscheme.tsv"
 #     columns = ['region', 'country', 'division', 'location']
 #     cache = path + 'cache.tsv'
-#     output = path + 'lat_longs.tsv'
+#     output = path + 'latlongs.tsv'
 
 
     force_coordinates = {'Washington': ('47.468284', '-120.491620')}
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     except:
         pass
 
-    # extract coordinates from XML file
+    # extract coordinates from TSV file
     scheme_list = open(geoscheme, "r").readlines()[1:]
     dont_search = []
     set_countries = []
@@ -73,6 +73,7 @@ if __name__ == '__main__':
                         set_countries.append(country_name)
                 except:
                     pass
+
 
     # find coordinates for locations not found in cache or XML file
     def find_coordinates(place):
