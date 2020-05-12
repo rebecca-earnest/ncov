@@ -90,7 +90,7 @@ Notes:<br />
 - Country
 - State *→ state acronym*
 - Division  *→ state full name*
-- City
+- Location  *→ city, town or any other local name*
 - Host
 - Source *→ lab source of the viral samples*
 - Update *→ number of the genome release, if new genomes are released in a regular basis*
