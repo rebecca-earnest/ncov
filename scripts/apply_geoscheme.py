@@ -14,14 +14,15 @@ if __name__ == '__main__':
     parser.add_argument("--geoscheme", required=True, help="XML file with geographic classifications")
     parser.add_argument("--output", required=True, help="Updated metadata file")
     args = parser.parse_args()
-
+    
     metadata = args.metadata
     geoscheme = args.geoscheme
     output = args.output
 
-    # metadata = path + 'metadata_filtered.tsv'
-    # geoscheme = path + "geoscheme.tsv"
-    # output = path + 'metadata_geo.tsv'
+#     metadata = path + 'metadata_filtered.tsv'
+#     geoscheme = path + "geoscheme.tsv"
+#     output = path + 'metadata_geo.tsv'
+
 
     # get ISO alpha3 country codes
     isos = {}
@@ -61,7 +62,7 @@ if __name__ == '__main__':
                         geoLevels[state.strip()] = id
 
             # parse subareas for states in geoscheme
-            if type == 'division':
+            if type == 'location':
                 members = line.split('\t')[5].split(',')  # elements inside the subarea
                 for zipcode in members:
                     if zipcode.strip() not in geoLevels.keys():
@@ -96,7 +97,10 @@ if __name__ == '__main__':
                 res = search.by_city_and_state(location, "CT")
                 area_zip = res[0].zipcode
                 if area_zip in geoLevels.keys():
+                    print(location, area_zip)
+
                     dfN.loc[idx, 'location'] = geoLevels[area_zip]
+                    print(location, geoLevels[area_zip])
             except:
                 notfound.append(location)
                 dfN.loc[idx, 'location'] = '?'

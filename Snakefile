@@ -427,7 +427,11 @@ rule clean:
 		"auspice",
 		"data",
 		"config/colors.tsv",
-		"config/latlongs.tsv"
+		"config/latlongs.tsv",
+		"pre-analyses/metadata_filtered.tsv",
+		"pre-analyses/temp_sequences.fasta",
+		"pre-analyses/rename.tsv"
+
 	shell:
 		"""
 		rm -rfv {params}

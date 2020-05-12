@@ -18,7 +18,7 @@ if __name__ == '__main__':
     parser.add_argument("--cache", required=False,  help="TSV file with preexisting latitudes and longitudes")
     parser.add_argument("--output", required=True, help="TSV file containing geographic coordinates")
     args = parser.parse_args()
-    
+
     metadata = args.metadata
     geoscheme = args.geoscheme
     columns = args.columns

@@ -1,9 +1,9 @@
 import pycountry_convert as pyCountry
+import pycountry
 import argparse
 from Bio import SeqIO
 import pandas as pd
 import numpy as np
-import pycountry
 
 
 if __name__ == '__main__':
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     parser.add_argument("--output2", required=True, help="TSV file for renaming virus IDs")
     parser.add_argument("--output3", required=True, help="Reformatted, final FASTA file")
     args = parser.parse_args()
-
+    
     genomes = args.genomes
     metadata1 = args.metadata1
     metadata2 = args.metadata2
@@ -26,12 +26,13 @@ if __name__ == '__main__':
     output2 = args.output2
     output3 = args.output3
 
-    # genomes = path + 'sequences_temp.fasta'
-    # metadata1 = path + 'metadata_nextstrain.tsv'
-    # metadata2 = path + 'COVID-19_sequencing.xlsx'
-    # output1 = path + 'metadata_filtered.tsv'
-    # output2 = path + 'rename.tsv'
-    # output3 = path + 'sequences.fasta'
+#     genomes = path + 'sequences_temp.fasta'
+#     metadata1 = path + 'metadata_nextstrain.tsv'
+#     metadata2 = path + 'COVID-19_sequencing.xlsx'
+#     output1 = path + 'metadata_filtered.tsv'
+#     output2 = path + 'rename.tsv'
+#     output3 = path + 'sequences.fasta'
+
 
     # create a dict of existing sequences
     sequences = {}
