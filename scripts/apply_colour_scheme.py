@@ -311,7 +311,7 @@ if __name__ == '__main__':
     def hue_to_rgb(hue):
         colour = int(hue / 240 * 255)
         # print(colour)
-        luminance = 0.5
+        luminance = 0.66
         rgb = [c * 255 * luminance for c in list(cm.jet(colour))[:-1]]
         # print(rgb)
         return RGB_to_hex(rgb)
