@@ -97,10 +97,7 @@ if __name__ == '__main__':
                 res = search.by_city_and_state(location, "CT")
                 area_zip = res[0].zipcode
                 if area_zip in geoLevels.keys():
-                    print(location, area_zip)
-
                     dfN.loc[idx, 'location'] = geoLevels[area_zip]
-                    print(location, geoLevels[area_zip])
             except:
                 notfound.append(location)
                 dfN.loc[idx, 'location'] = '?'

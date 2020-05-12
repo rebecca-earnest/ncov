@@ -18,7 +18,7 @@ if __name__ == '__main__':
     parser.add_argument("--cache", required=False,  help="TSV file with preexisting latitudes and longitudes")
     parser.add_argument("--output", required=True, help="TSV file containing geographic coordinates")
     args = parser.parse_args()
-
+    
     metadata = args.metadata
     geoscheme = args.geoscheme
     columns = args.columns
@@ -63,7 +63,6 @@ if __name__ == '__main__':
                     lat = line.split('\t')[3]
                     long = line.split('\t')[4]
                     entry = {subarea: (lat, long)}
-                    print(entry)
                     coordinates.update(entry)
 
                     if subarea not in results[type]:
@@ -74,8 +73,6 @@ if __name__ == '__main__':
                         set_countries.append(country_name)
                 except:
                     pass
-
-    print(results)
 
     # find coordinates for locations not found in cache or XML file
     def find_coordinates(place):
