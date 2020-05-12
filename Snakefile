@@ -22,7 +22,7 @@ rule files:
 		keep = "config/keep.txt",
 		remove = "config/remove.txt",
 		reference = "config/reference.gb",
-		geoscheme = "config/geoscheme.xml",
+		geoscheme = "config/geoscheme.tsv",
 		colour_grid = "config/colour_grid.html",
 		clades = "config/clades.tsv",
 		auspice_config = "config/auspice_config.json",
