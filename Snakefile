@@ -217,6 +217,7 @@ rule align:
             --sequences {input.sequences} \
             --reference-sequence {input.reference} \
             --output {output.alignment} \
+            --remove-reference \
             --fill-gaps
         """
 
@@ -356,7 +357,7 @@ rule traits:
     output:
         node_data = "results/traits.json",
     params:
-        columns = "region country"
+        columns = "region country division location"
     shell:
         """
         augur traits \
