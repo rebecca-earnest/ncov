@@ -5,7 +5,7 @@ import argparse
 from bs4 import BeautifulSoup as BS
 import numpy as np
 
-geolocator = Nominatim(user_agent="email@gmail.com") # add your email here
+geolocator = Nominatim(user_agent="email@gmail.com")  # add your email here
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -14,8 +14,8 @@ if __name__ == '__main__':
     )
     parser.add_argument("--metadata", required=True, help="Nextstrain metadata file")
     parser.add_argument("--geoscheme", required=True, help="XML file with geographic schemes")
-    parser.add_argument("--columns", nargs='+', type=str,  help="list of columns that need coordinates")
-    parser.add_argument("--cache", required=False,  help="TSV file with preexisting latitudes and longitudes")
+    parser.add_argument("--columns", nargs='+', type=str, help="list of columns that need coordinates")
+    parser.add_argument("--cache", required=False, help="TSV file with preexisting latitudes and longitudes")
     parser.add_argument("--output", required=True, help="TSV file containing geographic coordinates")
     args = parser.parse_args()
     
@@ -28,12 +28,12 @@ if __name__ == '__main__':
 #     metadata = path + 'metadata_geo.tsv'
 #     geoscheme = path + "geoscheme.tsv"
 #     columns = ['region', 'country', 'division', 'location']
-#     cache = path + 'cache.tsv'
+#     cache = path + 'cache_coordinates.tsv'
 #     output = path + 'latlongs.tsv'
 
+    force_coordinates = {'Washington DC': ('38.912708', '-77.009223')}
 
-    force_coordinates = {'Washington': ('47.468284', '-120.491620'), 'Massachusetts': ('42.373195', '-72.183999')}
-    results = {trait: {} for trait in columns} # content to be exported as final result
+    results = {trait: {} for trait in columns}  # content to be exported as final result
 
     # extract coordinates from cache file
     try:
@@ -43,11 +43,12 @@ if __name__ == '__main__':
                     trait, place, lat, long = line.strip().split('\t')
                     if trait in results.keys():
                         entry = {place: (str(lat), str(long))}
-                        results[trait].update(entry) # save as pre-existing result
+                        results[trait].update(entry)  # save as pre-existing result
                 except:
                     pass
     except:
         pass
+
 
     # extract coordinates from TSV file
     scheme_list = open(geoscheme, "r").readlines()[1:]
@@ -59,7 +60,7 @@ if __name__ == '__main__':
             if type in columns:
                 coordinates = {}
                 try:
-                    subarea = line.split('\t')[2] # name of the pre-defined area in the TSV file
+                    subarea = line.split('\t')[2]  # name of the pre-defined area in the TSV file
                     lat = line.split('\t')[3]
                     long = line.split('\t')[4]
                     entry = {subarea: (lat, long)}
@@ -86,9 +87,9 @@ if __name__ == '__main__':
             coord = ('?', '?')
             return coord
 
+
     # open metadata file as dataframe
     dfN = pd.read_csv(metadata, encoding='ISO-8859-1', sep='\t')
-
 
     queries = []
     pinpoints = [dfN[trait].values.tolist() for trait in columns if trait != 'region']
@@ -96,7 +97,7 @@ if __name__ == '__main__':
         traits = [trait for trait in columns if trait != 'region']
         for position, place in enumerate(address):
             level = traits[position]
-            query = list(address[0:position+1])
+            query = list(address[0:position + 1])
             queries.append((level, query))
 
     not_found = []
@@ -104,21 +105,27 @@ if __name__ == '__main__':
         trait, place = unknown_place[0], unknown_place[1]
         target = place[-1]
         if target not in ['?', '', 'NA', 'NAN', 'unknown', '-', np.nan, None]:
-            if target not in results[trait]:
+            try:
+                if place[0].split('-')[0] in set_countries:
+                    country_short = place[0].split('-')[0]  # correcting TSV pre-defined country names
+                    place[0] = country_short
+            except:
+                pass
+
+            if target not in results[trait] and target not in force_coordinates.keys():
                 new_query = []
                 for name in place:
-                    try:
-                        if name.split('-')[0] in set_countries:
-                            name = name.split('-')[0] # correcting TSV pre-defined country names
-                    except:
-                        pass
                     if name not in dont_search:
-                        new_query.append(name)
+                        if place[0] == 'USA':
+                            if name != 'USA':
+                                name = name + ' state'
+                        if name not in new_query:
+                            new_query.append(name)
 
                 item = (trait, ', '.join(new_query))
                 coord = ('?', '?')
                 if item not in not_found:
-                    coord = find_coordinates(new_query) # search coordinates
+                    coord = find_coordinates(', '.join(new_query))  # search coordinates
                 if '?' in coord:
                     if item not in not_found:
                         not_found.append(item)
@@ -128,13 +135,11 @@ if __name__ == '__main__':
                     entry = {target: coord}
                     results[trait].update(entry)
 
-
     print('\n### These coordinates were found and saved in the output file:')
     with open(output, 'w') as outfile:
         for trait, lines in results.items():
             print('\n* ' + trait)
             for place, coord in lines.items():
-                # print(place, coord)
                 if place in force_coordinates:
                     lat, long = force_coordinates[place][0], force_coordinates[place][1]
                 else:
