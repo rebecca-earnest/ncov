@@ -69,7 +69,7 @@ if __name__ == '__main__':
                         geoLevels[zipcode.strip()] = id
 
 
-    # open metadata file as dataframe:
+    # open metadata file as dataframe
     dfN = pd.read_csv(metadata, encoding='ISO-8859-1', sep='\t')
     try:
         dfN.insert(4, 'region', '')
@@ -77,9 +77,9 @@ if __name__ == '__main__':
         pass
     dfN['region'] = dfN['iso'].map(geoLevels) # add column region in metadata
 
-
     notfound = []
     # convert sets of locations into sub-locations
+    print('\nApplying geo-schemes...')
     search = SearchEngine(simple_zipcode=True)
     for idx, row in dfN.iterrows():
         # convert sets of states into subnational regions
@@ -87,8 +87,6 @@ if __name__ == '__main__':
         if division not in ['?', '', 'unknown']:
             if division in geoLevels.keys():
                 dfN.loc[idx, 'country'] = geoLevels[dfN.loc[idx, 'division']]
-            # else:
-            #     dfN.loc[idx, 'country'] = dfN.loc[idx, 'country']
 
         # convert sets of cities into sub-state regions
         location = dfN.loc[idx, 'location']
@@ -98,9 +96,13 @@ if __name__ == '__main__':
                 area_zip = res[0].zipcode
                 if area_zip in geoLevels.keys():
                     dfN.loc[idx, 'location'] = geoLevels[area_zip]
+                else:
+                    print(row['location'] + ' has a zip code (' + area_zip + ') not found in the geo-scheme.)')
+                    notfound.append(location)
             except:
                 notfound.append(location)
                 dfN.loc[idx, 'location'] = '?'
+        print('Processing metadata for... ' + row['strain'])
 
     # report errors
     if len(notfound) > 0:

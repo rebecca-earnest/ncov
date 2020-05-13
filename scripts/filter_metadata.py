@@ -93,7 +93,6 @@ if __name__ == '__main__':
 
             strain = row.strain.values[0]
             country = row.country.values[0]
-
             if country != row.country_exposure.values[0].strip(): # ignore travel cases
                 continue
             try:
@@ -209,12 +208,13 @@ if __name__ == '__main__':
                             lab_label[id] = strain
                     else:
                         continue
-            # print(dRow)
+
             else: # Assign 'NA' if no metadata is available
                 header = '|'.join([id, 'NA', 'NA', 'NA', 'NA'])
                 dHeaders[id] = header
                 notFound.append(id)
         lstNewMetadata = lstNewMetadata + list(dRow.values())
+
 
     # write new metadata files
     outputDF = pd.DataFrame(lstNewMetadata, columns=list(lColumns))
