@@ -101,7 +101,6 @@ if __name__ == '__main__':
 
             division_exposure = row.division_exposure.values[0].strip()
             if division != division_exposure: # ignore travel cases
-                # print([division, division_exposure])
                 continue
 
             if len(country) < 2:
@@ -109,13 +108,8 @@ if __name__ == '__main__':
             if len(division) < 2:
                 row.division.values[0] = country
 
-            # location = row.location.values[0]
-            # if division != 'Connecticut': # assign 'division' name to 'location', to discretize locations of non-target areas
-            #     location = division
-
             location = row.location.values[0]
             if division != 'Connecticut':  # assign 'division' name to 'location', to discretize locations of non-target areas
-                # print(division, location)
                 row.location.values[0] = division
             else:
                 if location == '?':
@@ -129,7 +123,6 @@ if __name__ == '__main__':
 
             lValues = row.values[0]
             for field, value in zip(fields.keys(), lValues):
-                # print(id)
                 if value in ['', np.nan, None]:
                     value = '?'
 
