@@ -26,7 +26,7 @@ if __name__ == '__main__':
     output2 = args.output2
     output3 = args.output3
 
-#     genomes = path + 'sequences_temp.fasta'
+#     genomes = path + 'temp_sequences.fasta'
 #     metadata1 = path + 'metadata_nextstrain.tsv'
 #     metadata2 = path + 'COVID-19_sequencing.xlsx'
 #     output1 = path + 'metadata_filtered.tsv'
@@ -93,22 +93,33 @@ if __name__ == '__main__':
 
             strain = row.strain.values[0]
             country = row.country.values[0]
-            if country != row.country_exposure.values[0].strip(): # ignore travel cases
+            division = row.division.values[0]
+
+            country_exposure = row.country_exposure.values[0].strip()
+            if country != country_exposure: # ignore travel cases
                 continue
-            try:
-                division = row.division.values[0]
-                if division != row.division_exposure.values[0].strip(): # ignore travel cases
-                    continue
-            except:
-                division = 'NA'
+
+            division_exposure = row.division_exposure.values[0].strip()
+            if division != division_exposure: # ignore travel cases
+                # print([division, division_exposure])
+                continue
+
             if len(country) < 2:
-                country = 'unknown'
+                row.country.values[0] = '?'
             if len(division) < 2:
-                division = country
+                row.division.values[0] = country
+
+            # location = row.location.values[0]
+            # if division != 'Connecticut': # assign 'division' name to 'location', to discretize locations of non-target areas
+            #     location = division
 
             location = row.location.values[0]
-            if division != 'Connecticut': # assign 'division' name to 'location', to discretize locations of non-target areas
-                location = division
+            if division != 'Connecticut':  # assign 'division' name to 'location', to discretize locations of non-target areas
+                # print(division, location)
+                row.location.values[0] = division
+            else:
+                if location == '?':
+                    row.location.values[0] = division
 
             iso = get_iso(country)
             row.iso.values[0] = iso # needed for exporting a renaming file
@@ -134,6 +145,7 @@ if __name__ == '__main__':
             dRow[id] = fields
             found.append(strain)
             print('Exporting metadata for ' + id)
+            print('')
 
         # check lab's metadata otherwise
         if id not in dRow.keys():
@@ -171,13 +183,12 @@ if __name__ == '__main__':
                             code = row['Division']
 
                         location = str(row['Location'])
-                        if len(location) > 1:
-                            if division != 'Connecticut':  # assign 'division' name to 'location', to discretize locations of non-target areas
-                                location = division
+                        if division != 'Connecticut':  # assign 'division' name to 'location', to discretize locations of non-target areas
+                            location = division
                         else:
-                            location = '?'
-
-
+                            if location == '?':
+                                location = division
+                        
                         region_exposure = '?'
                         country_exposure = '?'
                         iso = 'USA' # change this line to match the country of origin (alpha-3 ISO code)
