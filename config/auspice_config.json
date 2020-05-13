@@ -47,7 +47,7 @@
   "display_defaults": {
     "color_by": "division",
     "distance_measure": "div",
-    "geo_resolution": "division",
+    "geo_resolution": "location",
     "map_triplicate": true,
     "branch_label": "clade"
   },

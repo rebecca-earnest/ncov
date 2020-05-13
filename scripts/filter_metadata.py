@@ -145,7 +145,6 @@ if __name__ == '__main__':
             dRow[id] = fields
             found.append(strain)
             print('Exporting metadata for ' + id)
-            print('')
 
         # check lab's metadata otherwise
         if id not in dRow.keys():
