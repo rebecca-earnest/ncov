@@ -112,7 +112,7 @@ if __name__ == '__main__':
             except:
                 pass
 
-            if target not in results[trait] and target not in force_coordinates.keys():
+            if target not in results[trait]:
                 new_query = []
                 for name in place:
                     if name not in dont_search:
@@ -155,4 +155,5 @@ if __name__ == '__main__':
               '\nPlease fix them, and run the script again, or add coordinates manually:\n')
         for trait, address in not_found:
             print(trait + ': ' + address)
-    print('\n')
+
+print('\nCoordinates file successfully created!\n')

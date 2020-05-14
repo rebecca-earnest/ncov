@@ -1,3 +1,5 @@
+# Source: https://github.com/nextstrain/ncov/tree/master/scripts
+
 """
 Mask initial bases from alignment FASTA
 """

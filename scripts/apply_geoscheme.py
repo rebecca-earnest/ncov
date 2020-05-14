@@ -23,6 +23,7 @@ if __name__ == '__main__':
 #     geoscheme = path + "geoscheme.tsv"
 #     output = path + 'metadata_geo.tsv'
 
+    focus = ['USA', 'Canada', 'United Kingdom', 'Connecticut']
 
     # get ISO alpha3 country codes
     isos = {}
@@ -82,6 +83,12 @@ if __name__ == '__main__':
     print('\nApplying geo-schemes...')
     search = SearchEngine(simple_zipcode=True)
     for idx, row in dfN.iterrows():
+
+        # flatten divison names as country names, for countries that are not a focus of study
+        country = dfN.loc[idx, 'country']
+        if country not in focus:
+            dfN.loc[idx, 'division'] = country
+
         # convert sets of states into subnational regions
         division = dfN.loc[idx, 'division']
         if division not in ['?', '', 'unknown']:
@@ -102,6 +109,11 @@ if __name__ == '__main__':
             except:
                 notfound.append(location)
                 dfN.loc[idx, 'location'] = '?'
+
+        # flatten location names as division names for divisions that are not a focus of study
+        if division not in focus:
+            dfN.loc[idx, 'location'] = division
+
         print('Processing metadata for... ' + row['strain'])
 
     # report errors

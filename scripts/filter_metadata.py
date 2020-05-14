@@ -5,7 +5,6 @@ from Bio import SeqIO
 import pandas as pd
 import numpy as np
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description="Filter nextstrain metadata files re-formmating and exporting only selected lines",
@@ -25,14 +24,13 @@ if __name__ == '__main__':
     output1 = args.output1
     output2 = args.output2
     output3 = args.output3
-
+    
 #     genomes = path + 'temp_sequences.fasta'
 #     metadata1 = path + 'metadata_nextstrain.tsv'
 #     metadata2 = path + 'COVID-19_sequencing.xlsx'
 #     output1 = path + 'metadata_filtered.tsv'
 #     output2 = path + 'rename.tsv'
 #     output3 = path + 'sequences.fasta'
-
 
     # create a dict of existing sequences
     sequences = {}
@@ -43,6 +41,8 @@ if __name__ == '__main__':
 
     # get ISO alpha3 country codes
     isos = {}
+
+
     def get_iso(country):
         global isos
         if country not in isos.keys():
@@ -67,16 +67,20 @@ if __name__ == '__main__':
         pass
     dfN['update'] = '?'
     dfN.fillna('?', inplace=True)
-    lColumns = dfN.columns.values # list of column in the original metadata file
+    lColumns = dfN.columns.values  # list of column in the original metadata file
 
     # Lab genomes metadata
-    dfL = pd.read_excel(metadata2, index_col=None, header=0, sheet_name='Amplicon_Sequencing', # `sheet_name` must be changed to match your Excel sheet name
-                        converters={'Sample-ID': str, 'Collection-date': str, 'Update': str}) # this need to be tailored to your lab's naming system
-    dfL.fillna('?', inplace = True)
+    dfL = pd.read_excel(metadata2, index_col=None, header=0, sheet_name='Amplicon_Sequencing',
+                        # `sheet_name` must be changed to match your Excel sheet name
+                        converters={'Sample-ID': str, 'Collection-date': str,
+                                    'Update': str})  # this need to be tailored to your lab's naming system
+    dfL.fillna('?', inplace=True)
     dfL.set_index("Sample-ID", inplace=True)
 
-    fix_names = {'LiÃ¨ge': 'Liege', 'Auvergne-RhÃ´ne-Alpes': 'Auvergne-Rhone-Alpes', 'CompiÃ¨gne': 'Compiegne', 'CompiÃÂÃÂ¨': 'Compi3gne',
-                 'Bourgogne-France-ComtÃÂÃÂ©': 'Bourgogne-Franche-Comté', 'Meudon la ForÃÂÃÂªt': 'Meudon la Foret',
+    fix_names = {'LiÃ¨ge': 'Liege', 'Auvergne-RhÃ´ne-Alpes': 'Auvergne-Rhone-Alpes', 'CompiÃ¨gne': 'Compiegne',
+                 'CompiÃÂÃÂ¨': 'Compi3gne',
+                 'Bourgogne-France-ComtÃÂÃÂ©': 'Bourgogne-Franche-Comté',
+                 'Meudon la ForÃÂÃÂªt': 'Meudon la Foret',
                  'SmÃÂÃÂ¥land': 'Smaland', 'GraubÃÂÃÂ¼nden': 'Graubunden'}
 
     dHeaders = {}
@@ -94,13 +98,14 @@ if __name__ == '__main__':
             strain = row.strain.values[0]
             country = row.country.values[0]
             division = row.division.values[0]
+            location = row.location.values[0]
 
             country_exposure = row.country_exposure.values[0].strip()
-            if country != country_exposure: # ignore travel cases
+            if country != country_exposure:  # ignore travel cases
                 continue
 
             division_exposure = row.division_exposure.values[0].strip()
-            if division != division_exposure: # ignore travel cases
+            if division != division_exposure:  # ignore travel cases
                 continue
 
             if len(country) < 2:
@@ -108,21 +113,15 @@ if __name__ == '__main__':
             if len(division) < 2:
                 row.division.values[0] = country
 
-            location = row.location.values[0]
-            if division != 'Connecticut':  # assign 'division' name to 'location', to discretize locations of non-target areas
-                row.location.values[0] = division
-            else:
-                if location == '?':
-                    row.location.values[0] = division
-
             iso = get_iso(country)
-            row.iso.values[0] = iso # needed for exporting a renaming file
+            row.iso.values[0] = iso  # needed for exporting a renaming file
             date = row.date.values[0]
             header = '|'.join([strain, iso, division.replace(' ', '-'), date])
             dHeaders[strain] = header
 
             lValues = row.values[0]
             for field, value in zip(fields.keys(), lValues):
+                # print(id)
                 if value in ['', np.nan, None]:
                     value = '?'
 
@@ -154,10 +153,10 @@ if __name__ == '__main__':
                     fields = {column: '' for column in lColumns}
                     row = dfL.loc[id]
                     if row['State'] == '?':
-                        code = 'CT' # change this line to match the acronym of the most likely state of origin if the 'State' field is unknown
+                        code = 'CT'  # change this line to match the acronym of the most likely state of origin if the 'State' field is unknown
                     else:
                         code = row['State']
-                    strain = 'USA/' + code + '-' + id + '/2020' # change this line to match the country of origin (alpha-3 ISO code)
+                    strain = 'USA/' + code + '-' + id + '/2020'  # change this line to match the country of origin (alpha-3 ISO code)
 
                     if strain not in found:
                         gisaid_epi_isl = '?'
@@ -170,20 +169,14 @@ if __name__ == '__main__':
 
                         division = row['Division']
                         if row['Division'] == '?':
-                            code = 'Connecticut' # change this line to match the most likely state of origin if the 'Division' field is unknown
+                            code = 'Connecticut'  # change this line to match the most likely state of origin if the 'Division' field is unknown
                         else:
                             code = row['Division']
 
                         location = str(row['Location'])
-                        if division != 'Connecticut':  # assign 'division' name to 'location', to discretize locations of non-target areas
-                            location = division
-                        else:
-                            if location == '?':
-                                location = division
-                        
                         region_exposure = '?'
                         country_exposure = '?'
-                        iso = 'USA' # change this line to match the country of origin (alpha-3 ISO code)
+                        iso = 'USA'  # change this line to match the country of origin (alpha-3 ISO code)
                         division_exposure = '?'
                         try:
                             length = str(len(sequences[strain]))
@@ -191,13 +184,14 @@ if __name__ == '__main__':
                             length = str(len(sequences[id]))
                         host = row['Host']
                         originating_lab = row['Source']
-                        submitting_lab = 'Grubaugh Lab - Yale School of Public Health' # change this line to match you lab's name
-                        authors = 'Fauver et al' # change this line to match you lab's main author's name
+                        submitting_lab = 'Grubaugh Lab - Yale School of Public Health'  # change this line to match you lab's name
+                        authors = 'Fauver et al'  # change this line to match you lab's main author's name
                         url = '?'
                         update = 'Update' + str('0' * (2 - len(row['Update']))) + row['Update']
 
                         lValues = [strain, gisaid_epi_isl, genbank_accession, date, iso, country, division,
-                                   location, region_exposure, country_exposure, division_exposure, length, host, originating_lab,
+                                   location, region_exposure, country_exposure, division_exposure, length, host,
+                                   originating_lab,
                                    submitting_lab, authors, url, update]
 
                         header = '|'.join([strain, country, division.replace(' ', '-'), date])
@@ -212,12 +206,11 @@ if __name__ == '__main__':
                     else:
                         continue
 
-            else: # Assign 'NA' if no metadata is available
+            else:  # Assign 'NA' if no metadata is available
                 header = '|'.join([id, 'NA', 'NA', 'NA', 'NA'])
                 dHeaders[id] = header
                 notFound.append(id)
         lstNewMetadata = lstNewMetadata + list(dRow.values())
-
 
     # write new metadata files
     outputDF = pd.DataFrame(lstNewMetadata, columns=list(lColumns))

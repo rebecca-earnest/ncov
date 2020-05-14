@@ -311,7 +311,7 @@ if __name__ == '__main__':
     def hue_to_rgb(hue):
         colour = int(hue / 240 * 255)
         # print(colour)
-        luminance = 0.66
+        luminance = 0.7
         rgb = [c * 255 * luminance for c in list(cm.jet(colour))[:-1]]
         # print(rgb)
         return RGB_to_hex(rgb)
@@ -435,9 +435,9 @@ if __name__ == '__main__':
     with open(output, 'w') as outfile:
         for trait, entries in results.items():
             for place, hexcolour in entries.items():
-                if place in force_colour:
+                if place in force_colour and trait not in ['location']:
                     hexcolour = force_colour[place]
-                    print('_____________________________ ' + place + ' is set with the colour ' + hexcolour)
+                    print('\t* ' + place + ' was hardcoded with the colour ' + hexcolour)
                 line = "{}\t{}\t{}\n".format(trait, place, hexcolour.upper())
                 outfile.write(line)
             outfile.write('\n')
