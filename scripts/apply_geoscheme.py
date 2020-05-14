@@ -19,7 +19,7 @@ if __name__ == '__main__':
     geoscheme = args.geoscheme
     output = args.output
 
-#     metadata = path + 'metadata_filtered.tsv'
+    metadata # = path + 'metadata_filtered.tsv'
 #     geoscheme = path + "geoscheme.tsv"
 #     output = path + 'metadata_geo.tsv'
 
@@ -38,7 +38,7 @@ if __name__ == '__main__':
                     isoCode = pycountry.countries.search_fuzzy(country)[0].alpha_3
                     isos[country] = isoCode
                 except:
-                    isos[country] = '?'
+                    isos[country] = ''
         return isos[country]
 
     # parse subcontinental regions in geoscheme
@@ -91,13 +91,13 @@ if __name__ == '__main__':
 
         # convert sets of states into subnational regions
         division = dfN.loc[idx, 'division']
-        if division not in ['?', '', 'unknown']:
+        if division not in ['', 'unknown']:
             if division in geoLevels.keys():
                 dfN.loc[idx, 'country'] = geoLevels[dfN.loc[idx, 'division']]
 
         # convert sets of cities into sub-state regions
         location = dfN.loc[idx, 'location']
-        if location not in ['?', '', 'unknown'] and division == 'Connecticut':
+        if location not in ['', 'unknown'] and division == 'Connecticut':
             try:
                 res = search.by_city_and_state(location, "CT")
                 area_zip = res[0].zipcode
@@ -108,12 +108,11 @@ if __name__ == '__main__':
                     notfound.append(location)
             except:
                 notfound.append(location)
-                dfN.loc[idx, 'location'] = '?'
+                dfN.loc[idx, 'location'] = ''
 
         # flatten location names as division names for divisions that are not a focus of study
         if division not in focus:
             dfN.loc[idx, 'location'] = division
-
         print('Processing metadata for... ' + row['strain'])
 
     # report errors

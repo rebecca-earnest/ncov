@@ -20,7 +20,7 @@ if __name__ == '__main__':
     parser.add_argument("--columns", nargs='+', type=str,   help="list of columns with geographic information")
     parser.add_argument("--output", required=True, help="TSV file containing ordered HEX colours based on locations")
     args = parser.parse_args()
-
+    
     metadata = args.metadata
     geoscheme = args.geoscheme
     coordinates = args.coordinates
@@ -29,12 +29,12 @@ if __name__ == '__main__':
     output = args.output
 
 
-    # metadata = path + 'metadata_geo.tsv'
-    # coordinates = path + 'lat_longs.tsv'
-    # geoscheme = path + 'geoscheme.tsv'
-    # grid = path + 'colour_grid.html'
-    # columns = ['region', 'country', 'division', 'location']
-    # output = path + 'colors.tsv'
+#     metadata = path + 'metadata_geo.tsv'
+#     coordinates = path + 'lat_longs.tsv'
+#     geoscheme = path + 'geoscheme.tsv'
+#     grid = path + 'colour_grid.html'
+#     columns = ['region', 'country', 'division', 'location']
+#     output = path + 'colors.tsv'
 
 
     # pre-determined HEX colours and hues
@@ -57,7 +57,7 @@ if __name__ == '__main__':
                     isoCode = pycountry.countries.search_fuzzy(country)[0].alpha_3
                     isos[country] = isoCode
                 except:
-                    isos[country] = '?'
+                    isos[country] = ''
         return isos[country]
 
 
@@ -317,7 +317,7 @@ if __name__ == '__main__':
         return RGB_to_hex(rgb)
 
 
-    list_updates = [up_number for up_number in sorted(set(dfN['update'].to_list())) if up_number != '?']
+    list_updates = [up_number for up_number in sorted(set(dfN['update'].to_list())) if up_number != '']
     list_hex = list([hue_to_rgb(int(x)) for x in np.linspace(30, 240, len(list_updates)*2, endpoint=True)])
     skip_hex = [h for n, h in enumerate(list_hex) if n in range(0, len(list_hex), 2)]
 
@@ -437,7 +437,7 @@ if __name__ == '__main__':
             for place, hexcolour in entries.items():
                 if place in force_colour and trait not in ['location']:
                     hexcolour = force_colour[place]
-                    print('\t* ' + place + ' was hardcoded with the colour ' + hexcolour)
+                    print('_____________________________ ' + place + ' is set with the colour ' + hexcolour)
                 line = "{}\t{}\t{}\n".format(trait, place, hexcolour.upper())
                 outfile.write(line)
             outfile.write('\n')

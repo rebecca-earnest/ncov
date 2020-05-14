@@ -49,7 +49,6 @@ if __name__ == '__main__':
     except:
         pass
 
-
     # extract coordinates from TSV file
     scheme_list = open(geoscheme, "r").readlines()[1:]
     dont_search = []
@@ -84,7 +83,7 @@ if __name__ == '__main__':
             coord = (str(lat), str(long))
             return coord
         except:
-            coord = ('?', '?')
+            coord = ('NA', 'NA')
             return coord
 
 
@@ -104,7 +103,7 @@ if __name__ == '__main__':
     for unknown_place in queries:
         trait, place = unknown_place[0], unknown_place[1]
         target = place[-1]
-        if target not in ['?', '', 'NA', 'NAN', 'unknown', '-', np.nan, None]:
+        if target not in ['', 'NA', 'NAN', 'unknown', '-', np.nan, None]:
             try:
                 if place[0].split('-')[0] in set_countries:
                     country_short = place[0].split('-')[0]  # correcting TSV pre-defined country names
@@ -123,10 +122,10 @@ if __name__ == '__main__':
                             new_query.append(name)
 
                 item = (trait, ', '.join(new_query))
-                coord = ('?', '?')
+                coord = ('NA', 'NA')
                 if item not in not_found:
                     coord = find_coordinates(', '.join(new_query))  # search coordinates
-                if '?' in coord:
+                if 'NA' in coord:
                     if item not in not_found:
                         not_found.append(item)
                         print('\t* WARNING! Coordinates not found for: ' + trait + ', ' + ', '.join(new_query))
