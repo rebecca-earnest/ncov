@@ -316,8 +316,8 @@ if __name__ == '__main__':
         # print(rgb)
         return RGB_to_hex(rgb)
 
-
-    list_updates = [up_number for up_number in sorted(set(dfN['update'].to_list())) if up_number != '']
+    dfN['update'].fillna('X', inplace=True)
+    list_updates = [up_number for up_number in sorted(set(dfN['update'].to_list())) if up_number != 'X']
     list_hex = list([hue_to_rgb(int(x)) for x in np.linspace(30, 240, len(list_updates)*2, endpoint=True)])
     skip_hex = [h for n, h in enumerate(list_hex) if n in range(0, len(list_hex), 2)]
 
@@ -437,7 +437,7 @@ if __name__ == '__main__':
             for place, hexcolour in entries.items():
                 if place in force_colour and trait not in ['location']:
                     hexcolour = force_colour[place]
-                    print('_____________________________ ' + place + ' is set with the colour ' + hexcolour)
+                    print('* ' + place + ' is hardcode with the colour ' + hexcolour)
                 line = "{}\t{}\t{}\n".format(trait, place, hexcolour.upper())
                 outfile.write(line)
             outfile.write('\n')
