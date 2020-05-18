@@ -98,7 +98,6 @@ if __name__ == '__main__':
 
         # convert sets of cities into sub-state regions
         location = dfN.loc[idx, 'location']
-        print(location)
         if location not in ['', 'unknown'] and division == 'Connecticut':
             try:
                 res = search.by_city_and_state(location, "CT")
