@@ -19,11 +19,11 @@ if __name__ == '__main__':
     geoscheme = args.geoscheme
     output = args.output
 
-    metadata # = path + 'metadata_filtered.tsv'
+#     metadata = path + 'metadata_filtered.tsv'
 #     geoscheme = path + "geoscheme.tsv"
 #     output = path + 'metadata_geo.tsv'
 
-    focus = ['USA', 'Canada', 'United Kingdom', 'Connecticut']
+    focus = ['USA', 'Canada', 'United Kingdom', 'Connecticut', 'New York']
 
     # get ISO alpha3 country codes
     isos = {}
@@ -81,6 +81,7 @@ if __name__ == '__main__':
     notfound = []
     # convert sets of locations into sub-locations
     print('\nApplying geo-schemes...')
+    dfN.fillna('', inplace=True)
     search = SearchEngine(simple_zipcode=True)
     for idx, row in dfN.iterrows():
 
@@ -97,6 +98,7 @@ if __name__ == '__main__':
 
         # convert sets of cities into sub-state regions
         location = dfN.loc[idx, 'location']
+        print(location)
         if location not in ['', 'unknown'] and division == 'Connecticut':
             try:
                 res = search.by_city_and_state(location, "CT")
