@@ -17,20 +17,20 @@ if __name__ == '__main__':
     parser.add_argument("--output2", required=True, help="TSV file for renaming virus IDs")
     parser.add_argument("--output3", required=True, help="Reformatted, final FASTA file")
     args = parser.parse_args()
-
+    
     genomes = args.genomes
     metadata1 = args.metadata1
     metadata2 = args.metadata2
     output1 = args.output1
     output2 = args.output2
     output3 = args.output3
-    
-    # genomes = path + 'temp_sequences.fasta'
-    # metadata1 = path + 'metadata_nextstrain.tsv'
-    # metadata2 = path + 'COVID-19_sequencing.xlsx'
-    # output1 = path + 'metadata_filtered.tsv'
-    # output2 = path + 'rename.tsv'
-    # output3 = path + 'sequences.fasta'
+
+#     genomes = path + 'sequences_temp.fasta'
+#     metadata1 = path + 'metadata_nextstrain.tsv'
+#     metadata2 = path + 'COVID-19_sequencing.xlsx'
+#     output1 = path + 'metadata_filtered.tsv'
+#     output2 = path + 'rename.tsv'
+#     output3 = path + 'sequences.fasta'
 
     # create a dict of existing sequences
     sequences = {}
@@ -160,18 +160,23 @@ if __name__ == '__main__':
                         gisaid_epi_isl = ''
                         genbank_accession = ''
                         if len(str(row['Collection-date'])) > 1:
-                            date = row['Collection-date'].split(' ')[0].replace('.', '-')
+                            date = row['Collection-date'].split(' ')[0].replace('.', '-').replace('/', '-')
                         else:
                             date = ''
+                        print(date)
                         country = row['Country']
 
                         division = row['Division']
-                        if row['Division'] == '':
+                        if row['Division'] in ['', '?']:
                             code = 'Connecticut'  # change this line to match the most likely state of origin if the 'Division' field is unknown
                         else:
                             code = row['Division']
 
-                        location = str(row['Location'])
+                        if row['Location'] in ['', '?', 'N/A']:
+                            location = ''
+                        else:
+                            location = str(row['Location'])
+
                         region_exposure = ''
                         country_exposure = ''
                         iso = 'USA'  # change this line to match the country of origin (alpha-3 ISO code)
