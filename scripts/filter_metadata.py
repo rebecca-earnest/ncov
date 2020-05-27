@@ -163,7 +163,7 @@ if __name__ == '__main__':
                             date = row['Collection-date'].split(' ')[0].replace('.', '-').replace('/', '-')
                         else:
                             date = ''
-                        print(date)
+
                         country = row['Country']
 
                         division = row['Division']
