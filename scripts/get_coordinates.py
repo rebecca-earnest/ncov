@@ -31,7 +31,7 @@ if __name__ == '__main__':
 #     cache = path + 'cache_coordinates.tsv'
 #     output = path + 'latlongs.tsv'
 
-    force_coordinates = {'Washington DC': ('38.912708', '-77.009223')}
+    force_coordinates = {'Washington DC': ('38.912708', '-77.009223'), 'New-York-State': ('43.1561681', '-75.8449946')}
 
     results = {trait: {} for trait in columns}  # content to be exported as final result
 
