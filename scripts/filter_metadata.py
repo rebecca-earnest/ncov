@@ -17,7 +17,7 @@ if __name__ == '__main__':
     parser.add_argument("--output2", required=True, help="TSV file for renaming virus IDs")
     parser.add_argument("--output3", required=True, help="Reformatted, final FASTA file")
     args = parser.parse_args()
-    
+
     genomes = args.genomes
     metadata1 = args.metadata1
     metadata2 = args.metadata2
@@ -25,12 +25,12 @@ if __name__ == '__main__':
     output2 = args.output2
     output3 = args.output3
 
-#     genomes = path + 'sequences_temp.fasta'
-#     metadata1 = path + 'metadata_nextstrain.tsv'
-#     metadata2 = path + 'COVID-19_sequencing.xlsx'
-#     output1 = path + 'metadata_filtered.tsv'
-#     output2 = path + 'rename.tsv'
-#     output3 = path + 'sequences.fasta'
+    #     genomes = path + 'sequences_temp.fasta'
+    #     metadata1 = path + 'metadata_nextstrain.tsv'
+    #     metadata2 = path + 'COVID-19_sequencing.xlsx'
+    #     output1 = path + 'metadata_filtered.tsv'
+    #     output2 = path + 'rename.tsv'
+    #     output3 = path + 'sequences.fasta'
 
     # create a dict of existing sequences
     sequences = {}
@@ -41,6 +41,8 @@ if __name__ == '__main__':
 
     # get ISO alpha3 country codes
     isos = {}
+
+
     def get_iso(country):
         global isos
         if country not in isos.keys():
@@ -59,7 +61,7 @@ if __name__ == '__main__':
     # nextstrain metadata
     dfN = pd.read_csv(metadata1, encoding='ISO-8859-1', sep='\t')
     try:
-        dfN = dfN.drop(columns=['virus', 'region', 'segment', 'age', 'sex', 'title', 'date_submitted'])
+        dfN = dfN.drop(columns=['virus', 'region', 'segment', 'age', 'sex', 'title', 'date_submitted', 'paper_url'])
         dfN.insert(4, 'iso', '')
     except:
         pass
@@ -235,7 +237,7 @@ if __name__ == '__main__':
     with open(output3, 'w') as outfile3:
         # export new metadata lines
         for id, sequence in sequences.items():
-            if '/' not in id:
+            if 'Yale' in id:
                 if lab_label[id] not in exported:
                     entry = '>' + lab_label[id] + '\n' + sequence + '\n'
                     outfile3.write(entry)
