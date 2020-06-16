@@ -61,7 +61,7 @@ if __name__ == '__main__':
     # nextstrain metadata
     dfN = pd.read_csv(metadata1, encoding='ISO-8859-1', sep='\t')
     try:
-        dfN = dfN.drop(columns=['virus', 'region', 'segment', 'age', 'sex', 'title', 'date_submitted', 'paper_url'])
+        dfN = dfN.drop(columns=['virus', 'region', 'segment', 'age', 'sex', 'title', 'date_submitted', 'GISAID_clade', 'paper_url'])
         dfN.insert(4, 'iso', '')
     except:
         pass
