@@ -88,7 +88,7 @@ if __name__ == '__main__':
 
 
     # open metadata file as dataframe
-    dfN = pd.read_csv(metadata, encoding='ISO-8859-1', sep='\t')
+    dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t')
 
     queries = []
     pinpoints = [dfN[trait].values.tolist() for trait in columns if trait != 'region']

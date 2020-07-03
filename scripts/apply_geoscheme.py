@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import pycountry_convert as pyCountry
 import pycountry
 import pandas as pd
@@ -71,7 +73,7 @@ if __name__ == '__main__':
 
 
     # open metadata file as dataframe
-    dfN = pd.read_csv(metadata, encoding='ISO-8859-1', sep='\t')
+    dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t')
     try:
         dfN.insert(4, 'region', '')
     except:

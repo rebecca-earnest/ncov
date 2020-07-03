@@ -79,7 +79,7 @@ if __name__ == '__main__':
     ''' REORDER LOCATIONS FOR LEGEND FORMATTING '''
 
     # open metadata file as dataframe
-    dfN = pd.read_csv(metadata, encoding='ISO-8859-1', sep='\t')
+    dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t')
 
     ordered_regions = {}
     dcountries = {}

@@ -1,3 +1,4 @@
+# coding=utf-8
 import pycountry_convert as pyCountry
 import pycountry
 import argparse
@@ -59,7 +60,7 @@ if __name__ == '__main__':
 
 
     # nextstrain metadata
-    dfN = pd.read_csv(metadata1, encoding='ISO-8859-1', sep='\t')
+    dfN = pd.read_csv(metadata1, encoding='utf-8', sep='\t')
     try:
         dfN = dfN.drop(columns=['virus', 'region', 'segment', 'age', 'sex', 'title', 'date_submitted', 'pangolin_lineage', 'GISAID_clade', 'paper_url', 'date_submitted'])
         dfN.insert(4, 'iso', '')
