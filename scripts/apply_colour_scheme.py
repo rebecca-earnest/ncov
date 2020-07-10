@@ -20,7 +20,7 @@ if __name__ == '__main__':
     parser.add_argument("--columns", nargs='+', type=str,   help="list of columns with geographic information")
     parser.add_argument("--output", required=True, help="TSV file containing ordered HEX colours based on locations")
     args = parser.parse_args()
-    
+
     metadata = args.metadata
     geoscheme = args.geoscheme
     coordinates = args.coordinates
@@ -29,12 +29,12 @@ if __name__ == '__main__':
     output = args.output
 
 
-#     metadata = path + 'metadata_geo.tsv'
-#     coordinates = path + 'lat_longs.tsv'
-#     geoscheme = path + 'geoscheme.tsv'
-#     grid = path + 'colour_grid.html'
-#     columns = ['region', 'country', 'division', 'location']
-#     output = path + 'colors.tsv'
+    # metadata = path + 'metadata_short.tsv'
+    # coordinates = path + 'latlongs.tsv'
+    # geoscheme = path + 'geoscheme.tsv'
+    # grid = path + 'colour_grid.html'
+    # columns = ['region', 'country', 'division', 'location']
+    # output = path + 'colors.tsv'
 
 
     # pre-determined HEX colours and hues
@@ -79,7 +79,8 @@ if __name__ == '__main__':
     ''' REORDER LOCATIONS FOR LEGEND FORMATTING '''
 
     # open metadata file as dataframe
-    dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t')
+    dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t', dtype=str)
+    dfN = dfN[['region', 'country', 'division', 'location', 'update']]
 
     ordered_regions = {}
     dcountries = {}
@@ -273,35 +274,34 @@ if __name__ == '__main__':
         hue_to_hex[hue_value] = hex
 
 
-    colour_scale = {'magenta': [320, 310], 'purple': [300, 290, 280, 270, 260],
-                    'blue': [250, 240, 230, 220], 'cyan': [210, 200], 'turquoise': [190, 180, 170, 160, 150],
-                    'green': [140, 130, 120, 110], 'yellowgreen': [100, 90, 80, 70],
+    colour_scale = {'magenta': [320], 'purple': [310, 300, 290, 280, 270, 260],
+                    'blue': [250, 240, 230, 220], 'cyan': [210, 200, 190, 180], 'turquoise': [170, 160, 150],
+                    'green': [140, 130, 120], 'yellowgreen': [110, 100, 90, 80, 70],
                     'yellow': [60, 50, 40], 'orange': [30, 20], 'red': [10, 0]}
-    #
+
     continent_hues = {'Oceania': colour_scale['magenta'], 'Asia': colour_scale['purple'],
                       'Europe': colour_scale['blue'] + colour_scale['cyan'], 'Africa': colour_scale['yellowgreen'],
                       'America': colour_scale['yellow'] + colour_scale['orange'] + colour_scale['red']}
 
-
-    categories = len(sampled_region)
     colour_wheel = {}
-    c = 0
-    palette = []
-    for continent, regions in geodata.items():
-        categories = len(regions)
-        hues = len(continent_hues[continent])
-        for region in sampled_region:
-            for position, region in zip([x for x in range(1, int(hues), int(hues/categories))], regions):
-                hue = continent_hues[continent][position] # colour picker
-                if hue not in palette:
-                    palette.append(hue)
+    palette = {}
+    for area, subareas in geodata.items():
+        num_subareas = len(subareas)
+        hues = len(continent_hues[area])
+        # print(area, subareas)
+        for position, subarea in zip([int(x) for x in np.linspace(0, int(hues), num_subareas, endpoint=False)], subareas):
+            if subarea not in palette.keys():
+                hue = continent_hues[area][position] # colour picker
+                palette[subarea] = hue
+                # print(subarea, hue)
 
-
-    for region, hue in zip(sampled_region, palette):
+    # print(sampled_region)
+    # print(palette)
+    for region in sampled_region:
         if region in force_hue:
             colour_wheel[region] = hue_to_hex[force_hue[region]]
         else:
-            colour_wheel[region] = hue_to_hex[hue]
+            colour_wheel[region] = hue_to_hex[palette[region]]
 
 
 
@@ -370,7 +370,6 @@ if __name__ == '__main__':
 
 
     ''' CREATE COLOUR GRADIENT '''
-
     # define gradients for regions
     for continent, regions in geodata.items():
         hex_limits = []
