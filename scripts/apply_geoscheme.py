@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 
 import pycountry_convert as pyCountry
 import pycountry
@@ -16,14 +16,14 @@ if __name__ == '__main__':
     parser.add_argument("--geoscheme", required=True, help="XML file with geographic classifications")
     parser.add_argument("--output", required=True, help="Updated metadata file")
     args = parser.parse_args()
-    
+
     metadata = args.metadata
     geoscheme = args.geoscheme
     output = args.output
 
-#     metadata = path + 'metadata_filtered.tsv'
-#     geoscheme = path + "geoscheme.tsv"
-#     output = path + 'metadata_geo.tsv'
+    # metadata = path + 'metadata_filtered.tsv'
+    # geoscheme = path + "geoscheme.tsv"
+    # output = path + 'metadata_geo.tsv'
 
     focus = ['USA', 'Canada', 'United Kingdom', 'Connecticut', 'New York']
 
@@ -100,6 +100,7 @@ if __name__ == '__main__':
 
         # convert sets of cities into sub-state regions
         location = dfN.loc[idx, 'location']
+        # print(location)
         if location not in ['', 'unknown'] and division == 'Connecticut':
             try:
                 res = search.by_city_and_state(location, "CT")

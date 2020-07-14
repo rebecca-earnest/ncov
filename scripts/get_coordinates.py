@@ -18,18 +18,18 @@ if __name__ == '__main__':
     parser.add_argument("--cache", required=False, help="TSV file with preexisting latitudes and longitudes")
     parser.add_argument("--output", required=True, help="TSV file containing geographic coordinates")
     args = parser.parse_args()
-    
+
     metadata = args.metadata
     geoscheme = args.geoscheme
     columns = args.columns
     cache = args.cache
     output = args.output
 
-#     metadata = path + 'metadata_geo.tsv'
-#     geoscheme = path + "geoscheme.tsv"
-#     columns = ['region', 'country', 'division', 'location']
-#     cache = path + 'cache_coordinates.tsv'
-#     output = path + 'latlongs.tsv'
+    # metadata = path + 'metadata_geo.tsv'
+    # geoscheme = path + "geoscheme.tsv"
+    # columns = ['region', 'country', 'division', 'location']
+    # cache = path + 'cache_coordinates.tsv'
+    # output = path + 'latlongs.tsv'
 
     force_coordinates = {'Washington DC': ('38.912708', '-77.009223'), 'New-York-State': ('43.1561681', '-75.8449946')}
 
