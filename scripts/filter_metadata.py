@@ -1,4 +1,3 @@
-# coding=utf-8
 import pycountry_convert as pyCountry
 import pycountry
 import argparse
@@ -26,12 +25,12 @@ if __name__ == '__main__':
     output2 = args.output2
     output3 = args.output3
 
-    #     genomes = path + 'sequences_temp.fasta'
-    #     metadata1 = path + 'metadata_nextstrain.tsv'
-    #     metadata2 = path + 'COVID-19_sequencing.xlsx'
-    #     output1 = path + 'metadata_filtered.tsv'
-    #     output2 = path + 'rename.tsv'
-    #     output3 = path + 'sequences.fasta'
+    # genomes = path + 'sequences_temp.fasta'
+    # metadata1 = path + 'metadata_nextstrain.tsv'
+    # metadata2 = path + 'COVID-19_sequencing.xlsx'
+    # output1 = path + 'metadata_filtered.tsv'
+    # output2 = path + 'rename.tsv'
+    # output3 = path + 'sequences.fasta'
 
     # create a dict of existing sequences
     sequences = {}
@@ -60,9 +59,10 @@ if __name__ == '__main__':
 
 
     # nextstrain metadata
-    dfN = pd.read_csv(metadata1, encoding='utf-8', sep='\t')
+    dfN = pd.read_csv(metadata1, encoding='ISO-8859-1', sep='\t')
     try:
-        dfN = dfN.drop(columns=['virus', 'region', 'segment', 'age', 'sex', 'title', 'date_submitted', 'pangolin_lineage', 'GISAID_clade', 'paper_url', 'date_submitted'])
+        dfN = dfN[['strain', 'gisaid_epi_isl', 'genbank_accession', 'date', 'country', 'division', 'location',
+                      'region_exposure', 'country_exposure', 'division_exposure', 'originating_lab', 'submitting_lab']]
         dfN.insert(4, 'iso', '')
     except:
         pass
@@ -78,11 +78,6 @@ if __name__ == '__main__':
     dfL.fillna('', inplace=True)
     dfL.set_index("Sample-ID", inplace=True)
 
-    fix_names = {'LiÃ¨ge': 'Liege', 'Auvergne-RhÃ´ne-Alpes': 'Auvergne-Rhone-Alpes', 'CompiÃ¨gne': 'Compiegne',
-                 'CompiÃÂÃÂ¨': 'Compi3gne',
-                 'Bourgogne-France-ComtÃÂÃÂ©': 'Bourgogne-Franche-Comté',
-                 'Meudon la ForÃÂÃÂªt': 'Meudon la Foret',
-                 'SmÃÂÃÂ¥land': 'Smaland', 'GraubÃÂÃÂ¼nden': 'Graubunden'}
 
     dHeaders = {}
     notFound = []
@@ -125,11 +120,6 @@ if __name__ == '__main__':
                 # print(id)
                 if value in ['', np.nan, None]:
                     value = ''
-
-                # fix names
-                if field == 'division':
-                    if row.division.values[0].strip() in fix_names.keys():
-                        value = fix_names[row.division.values[0].strip()]
 
                 fields[field] = value
             if country == '':
@@ -217,6 +207,7 @@ if __name__ == '__main__':
                 dHeaders[id] = header
                 notFound.append(id)
         lstNewMetadata = lstNewMetadata + list(dRow.values())
+
 
     # write new metadata files
     outputDF = pd.DataFrame(lstNewMetadata, columns=list(lColumns))
