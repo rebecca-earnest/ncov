@@ -76,9 +76,20 @@ if __name__ == '__main__':
     dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t')
     try:
         dfN.insert(4, 'region', '')
+        dfN.insert(8, 'area', '')
     except:
         pass
-    dfN['region'] = dfN['iso'].map(geoLevels) # add column region in metadata
+    dfN['region'] = dfN['iso'].map(geoLevels) # add 'column' region in metadata
+
+    def add_area(division):
+        area = ['Connecticut', 'Maine', 'Massachusetts', 'New Hampshire', 'Rhode Island', 'Vermont']
+        if division in area:
+            return 'New England'
+        else:
+            return 'Other areas'
+
+    dfN['area'] = dfN['division'].map(add_area) # add column 'area' in metadata
+
 
     notfound = []
     # convert sets of locations into sub-locations
