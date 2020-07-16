@@ -27,7 +27,7 @@ if __name__ == '__main__':
     output2 = args.output2
     output3 = args.output3
 
-    # genomes = path + 'sequences_temp.fasta'
+    # genomes = path + 'temp_sequences.fasta'
     # metadata1 = path + 'metadata_nextstrain.tsv'
     # metadata2 = path + 'COVID-19_sequencing.xlsx'
     # output1 = path + 'metadata_filtered.tsv'
@@ -64,7 +64,8 @@ if __name__ == '__main__':
     dfN = pd.read_csv(metadata1, encoding='utf-8', sep='\t')
     try:
         dfN = dfN[['strain', 'gisaid_epi_isl', 'genbank_accession', 'date', 'country', 'division', 'location',
-                      'region_exposure', 'country_exposure', 'division_exposure', 'originating_lab', 'submitting_lab']]
+                      'region_exposure', 'country_exposure', 'division_exposure', 'originating_lab', 'submitting_lab',
+                   'authors']]
         dfN.insert(4, 'iso', '')
     except:
         pass
@@ -184,13 +185,11 @@ if __name__ == '__main__':
                         originating_lab = row['Source']
                         submitting_lab = 'Grubaugh Lab - Yale School of Public Health'  # change this line to match you lab's name
                         authors = 'Fauver et al'  # change this line to match you lab's main author's name
-                        url = 'https://covidtrackerct.com/'
                         update = 'Update' + str('0' * (2 - len(row['Update']))) + row['Update']
 
                         lValues = [strain, gisaid_epi_isl, genbank_accession, date, iso, country, division,
-                                   location, region_exposure, country_exposure, division_exposure, length, host,
-                                   originating_lab,
-                                   submitting_lab, authors, url, update]
+                                   location, region_exposure, country_exposure, division_exposure,
+                                   originating_lab, submitting_lab, authors, update]
 
                         header = '|'.join([strain, country, division.replace(' ', '-'), date])
                         dHeaders[strain] = header
