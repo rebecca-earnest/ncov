@@ -357,7 +357,7 @@ rule traits:
     output:
         node_data = "results/traits.json",
     params:
-        columns = "region country division location"
+        columns = "region country division location area"
     shell:
         """
         augur traits \
