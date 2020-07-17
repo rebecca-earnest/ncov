@@ -428,6 +428,13 @@ if __name__ == '__main__':
             results['location'].update({location: colour})
 
 
+    # special colouring, hardcoded
+    category = {'International': '#bf9540', 'Other-USA': '#407fbf', 'New England': '#a32929'}
+    results['category'] = {}
+    for cat, hex in category.items():
+        results['category'].update({cat: hex})
+        print('category', cat, hex)
+
 
     ''' EXPORT COLOUR FILE '''
 

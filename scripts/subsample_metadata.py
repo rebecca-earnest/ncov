@@ -84,7 +84,7 @@ if __name__ == '__main__':
     start, end = dfN['date'].min(), dfN['date'].max()
 
 
-    # drop columns where 'place' and 'place_expose' disagree
+    # drop columns where 'country' and 'country_exposure' disagree
     dfN['same_country'] = np.where(dfN['country'] == dfN['country_exposure'], 'yes', 'no') # compare values
     dfN.loc[dfN['country_exposure'] == '', 'same_country'] = 'yes'
     dfN = dfN[dfN['same_country'].apply(lambda x: 'yes' in x)] # exclude rows with conflicting place of origin

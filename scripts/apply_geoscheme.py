@@ -21,6 +21,7 @@ if __name__ == '__main__':
     geoscheme = args.geoscheme
     output = args.output
 
+
     # metadata = path + 'metadata_filtered.tsv'
     # geoscheme = path + "geoscheme.tsv"
     # output = path + 'metadata_geo.tsv'
@@ -81,6 +82,16 @@ if __name__ == '__main__':
         pass
     dfN['region'] = dfN['iso'].map(geoLevels) # add 'column' region in metadata
 
+
+    # add column 'area' in metadata
+    def add_international(country):
+        if not country.startswith('USA'):
+            return 'International'
+        else:
+            return ''
+
+    dfN['area'] = dfN['country'].map(add_international)
+
     def add_area(division):
         area = ['Connecticut', 'Maine', 'Massachusetts', 'New Hampshire', 'Rhode Island', 'Vermont']
         if division in area:
@@ -88,7 +99,7 @@ if __name__ == '__main__':
         else:
             return 'Other areas'
 
-    dfN['area'] = dfN['division'].map(add_area) # add column 'area' in metadata
+    dfN['area'] = dfN['division'].map(add_area)
 
 
     notfound = []

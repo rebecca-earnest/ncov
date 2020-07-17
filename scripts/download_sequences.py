@@ -35,7 +35,7 @@ if __name__ == '__main__':
         id = str(fasta.description).split('|')[1]
         existing_ncbi.append(id)
 
-    dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t')
+    dfN = pd.read_csv(metadata, encoding='utf-8', sep='\t', dtype=str)
     # ns_entries = dfN['strain'].to_list()
     dup_seqs = [accno.strip() for accno in open(redundant, 'r').readlines() if accno[0] not in ['\n', '#']]
 
