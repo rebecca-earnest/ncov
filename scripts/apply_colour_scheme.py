@@ -429,7 +429,7 @@ if __name__ == '__main__':
 
 
     # special colouring, hardcoded
-    category = {'International': '#bf9540', 'Other-USA': '#407fbf', 'New England': '#a32929'}
+    category = {'International': '#bf9540', 'Other US areas': '#407fbf', 'New England': '#a32929'}
     results['category'] = {}
     for cat, hex in category.items():
         results['category'].update({cat: hex})
