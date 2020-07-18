@@ -21,12 +21,12 @@ if __name__ == '__main__':
     geoscheme = args.geoscheme
     output = args.output
 
-
     # metadata = path + 'metadata_filtered.tsv'
     # geoscheme = path + "geoscheme.tsv"
     # output = path + 'metadata_geo.tsv'
 
-    focus = ['USA', 'Canada', 'United Kingdom', 'Connecticut', 'New York']
+    focus = ['USA', 'Canada', 'United Kingdom', 'Maine', 'New Hampshire',
+             'Massachusetts', 'Connecticut', 'Vermont', 'New York']
 
     # get ISO alpha3 country codes
     isos = {}
@@ -84,23 +84,25 @@ if __name__ == '__main__':
 
 
     # add column 'area' in metadata
-    def add_international(country):
-        if not country.startswith('USA'):
-            return 'International'
-        else:
-            return ''
-
-    dfN['area'] = dfN['country'].map(add_international)
-
     def add_area(division):
         area = ['Connecticut', 'Maine', 'Massachusetts', 'New Hampshire', 'Rhode Island', 'Vermont']
         if division in area:
             return 'New England'
         else:
-            return 'Other areas'
+            return 'Other US areas'
 
     dfN['area'] = dfN['division'].map(add_area)
 
+    def is_international(country):
+        if not country.startswith('USA'):
+            return 'yes'
+        else:
+            return 'no'
+
+    dfN['from_abroad'] = dfN['country'].map(is_international)
+    dfN.loc[dfN['from_abroad'] == 'yes', 'area'] = 'International' # assign non-US genomes as 'International'
+
+    dfN = dfN.drop(['from_abroad'], axis=1)
 
     notfound = []
     # convert sets of locations into sub-locations
