@@ -288,6 +288,7 @@ rule refine:
         coalescent = "skyline",
         clock_rate = 0.0008,
         clock_std_dev = 0.0004,
+        clock_filter_iqd = 3,
         date_inference = "marginal"
     shell:
         """
@@ -303,6 +304,7 @@ rule refine:
             --date-confidence \
             --clock-rate {params.clock_rate} \
             --clock-std-dev {params.clock_std_dev} \
+            --clock-filter-iqd {params.clock_filter_iqd} \
             --date-inference {params.date_inference}
         """
 
