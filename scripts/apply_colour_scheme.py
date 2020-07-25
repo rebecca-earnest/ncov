@@ -429,11 +429,11 @@ if __name__ == '__main__':
 
 
     # special colouring, hardcoded
-    category = {'International': '#bf9540', 'Other US areas': '#407fbf', 'New England': '#a32929'}
-    results['category'] = {}
-    for cat, hex in category.items():
-        results['category'].update({cat: hex})
-        print('category', cat, hex)
+    area = {'International': '#8f743d', 'Other US areas': '#3d668f', 'New England': '#8f3d3d'}
+    results['area'] = {}
+    for cat, hex in area.items():
+        results['area'].update({cat: hex})
+        print('area', cat, hex)
 
 
     ''' EXPORT COLOUR FILE '''

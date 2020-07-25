@@ -13,18 +13,19 @@ if __name__ == '__main__':
     parser.add_argument("--remove", required=True, help="TXT file with accession number of genomes to be removed")
     parser.add_argument("--output", required=True, help="FASTA file containing filtered sequences")
     args = parser.parse_args()
-    
+
     genomes = args.genomes
     new_genomes = args.new_genomes
     keep = args.keep
     remove = args.remove
     outfile = args.output
 
-#     genomes = path + "gisaid_hcov-19.fasta"
-#     new_genomes = path + "new_genomes.fasta"
-#     keep = path + 'keep.txt'
-#     remove = path + "remove.txt"
-#     outfile = path + "sequences_temp.fasta"
+
+    # genomes = path + "gisaid_hcov-19.fasta"
+    # new_genomes = path + "new_genomes.fasta"
+    # keep = path + 'keep.txt'
+    # remove = path + "remove.txt"
+    # outfile = path + "temp_sequences.fasta"
 
 
     # store only new sequences in a dictionary, ignoring existing ones
@@ -40,7 +41,7 @@ if __name__ == '__main__':
     for fasta in SeqIO.parse(open(genomes),'fasta'):
         id, seq = fasta.description, fasta.seq
         # print(id)
-        id = id.replace('hCoV-19/', '').split('|')[0]
+        id = id.replace('hCoV-19/', '').split('|')[0].replace(' ', '')
         if id not in newly_sequenced.keys(): # avoid potential duplicates
             if "Yale-" not in id: # change this line to match you lab's unique identifier
                 all_sequences[id] = str(seq)
