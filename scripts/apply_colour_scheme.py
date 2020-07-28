@@ -429,7 +429,7 @@ if __name__ == '__main__':
 
 
     # special colouring, hardcoded
-    area = {'International': '#8f743d', 'Other US areas': '#3d668f', 'New England': '#8f3d3d'}
+    area = {'International': '#b3914d', 'Other US areas': '#3d668f', 'New England': '#8f3d3d'}
     results['area'] = {}
     for cat, hex in area.items():
         results['area'].update({cat: hex})
