@@ -16,7 +16,7 @@ if __name__ == '__main__':
     parser.add_argument("--remove", required=False, help="List of samples to remove, in all instances")
     parser.add_argument("--scheme", required=True, help="Subsampling scheme")
     parser.add_argument("--output", required=True, help="Selected list of samples")
-    parser.add_argument("--report", required=True, help="Report listing samples per category")
+    parser.add_argument("--report", required=False, help="Report listing samples per category")
     args = parser.parse_args()
 
     metadata = args.metadata
@@ -25,6 +25,7 @@ if __name__ == '__main__':
     scheme = args.scheme
     report = args.report
     output = args.output
+
 
     # metadata = path + 'metadata_geo.tsv'
     # keep = path + 'keep.txt'
@@ -37,7 +38,10 @@ if __name__ == '__main__':
     today = time.strftime('%Y-%m-%d', time.gmtime())
 
     # force genomes to be kept in final dataset
-    to_keep = [strain.strip() for strain in open(keep, 'r').readlines() if strain[0] not in ['#', '\n']]
+    if keep == None:
+        to_keep = []
+    else:
+        to_keep = [strain.strip() for strain in open(keep, 'r').readlines() if strain[0] not in ['#', '\n']]
 
     # subsampling scheme
     dfS = pd.read_csv(scheme, encoding='utf-8', sep='\t', dtype=str)
@@ -73,7 +77,10 @@ if __name__ == '__main__':
 
 
     # drop rows listed in remove.txt
-    to_remove = [strain.strip() for strain in open(remove, 'r').readlines()]
+    if remove == None:
+        to_remove = []
+    else:
+        to_remove = [strain.strip() for strain in open(remove, 'r').readlines()]
     dfN = dfN[~dfN['strain'].isin(to_remove)]
 
     # prevent samples already selected in keep.txt from being resampled
@@ -171,32 +178,39 @@ if __name__ == '__main__':
     print('\n# Genomes sampled per category in subsampling scheme\n')
     exported = []
     genome_count = 0
-    with open(output, 'w') as outfile, open(report, 'w') as outfile2:
-        outfile.write('# Genomes selected on ' + today + '\n')
+    outfile = open(output, 'w')
+    # with open(output, 'w') as outfile, open(report, 'w') as outfile2:
+    outfile.write('# Genomes selected on ' + today + '\n')
+
+    if report != None:
+        outfile2 = open(report, 'w')
         outfile2.write('sample_size' + '\t' + 'category' + '\n')
-        for level, name in results.items():
-            for place, entries in name.items():
-                if len(entries) > 1:
-                    genome_count += len(entries)
-                    entry = str(len(entries)) + '\t' + place + ' (' + level + ')'
+
+    for level, name in results.items():
+        for place, entries in name.items():
+            if len(entries) > 1:
+                genome_count += len(entries)
+                entry = str(len(entries)) + '\t' + place + ' (' + level + ')'
+                if report != None:
                     outfile2.write(entry + '\n')
-                    print(entry)
+                print(entry)
 
-                    for strain_name in entries:
-                        if strain_name not in [exported + to_keep]:
-                            outfile.write(strain_name + '\n')
-                            exported.append(strain_name)
+                for strain_name in entries:
+                    if strain_name not in [exported + to_keep]:
+                        outfile.write(strain_name + '\n')
+                        exported.append(strain_name)
 
-        # report selected samples listed in keep.txt
-        print('- ' + str(len(to_keep)) + ' genomes added from pre-selected list\n')
-        outfile.write('\n# Pre-existing genomes listed in keep.txt\n')
-        for strain in to_keep:
-            if strain not in exported:
-                outfile.write(strain + '\n')
-                exported.append(strain)
+    # report selected samples listed in keep.txt
+    print('- ' + str(len(to_keep)) + ' genomes added from pre-selected list\n')
+    outfile.write('\n# Pre-existing genomes listed in keep.txt\n')
+    for strain in to_keep:
+        if strain not in exported:
+            outfile.write(strain + '\n')
+            exported.append(strain)
 
-        print('\n# Genomes matching the criteria below were not found')
-        outfile2.write('\n# Categories not found\n')
+    print('\n# Genomes matching the criteria below were not found')
+    if report != None:
+        outfile2.write('\n# Categories not found in metadata\n')
         for level, name in results.items():
             for place, entries in name.items():
                 if len(entries) == 0:
