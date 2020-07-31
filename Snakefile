@@ -26,7 +26,8 @@ rule files:
 		colour_grid = "config/colour_grid.html",
 		clades = "config/clades.tsv",
 		auspice_config = "config/auspice_config.json",
-		dropped_strains = "config/dropped_strains.txt"
+		dropped_strains = "config/dropped_strains.txt",
+		aligned = "config/aligned.fasta"
 
 
 
@@ -208,17 +209,19 @@ rule align:
         """
     input:
         sequences = rules.filter.output.sequences,
-        reference = reference
+        reference = reference,
+        aligned = files.aligned
     output:
         alignment = "results/aligned.fasta"
     shell:
         """
         augur align \
+            --existing-alignment {files.aligned} \
             --sequences {input.sequences} \
             --reference-sequence {input.reference} \
             --output {output.alignment} \
             --remove-reference \
-            --fill-gaps
+            --fill-gaps \
         """
 
 
@@ -288,8 +291,7 @@ rule refine:
         coalescent = "skyline",
         clock_rate = 0.0008,
         clock_std_dev = 0.0004,
-        clock_filter_iqd = 3,
-        date_inference = "marginal"
+        date_inference = "marginal",
     shell:
         """
         augur refine \
@@ -302,9 +304,9 @@ rule refine:
             --timetree \
             --coalescent {params.coalescent} \
             --date-confidence \
+            --clock-filter-iqd 3 \
             --clock-rate {params.clock_rate} \
             --clock-std-dev {params.clock_std_dev} \
-            --clock-filter-iqd {params.clock_filter_iqd} \
             --date-inference {params.date_inference}
         """
 
