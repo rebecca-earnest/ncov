@@ -5,7 +5,6 @@
 # Release date: 2020-03-24
 # Last update: 2021-04-27
 
-
 import pycountry_convert as pyCountry
 import pycountry
 from Bio import SeqIO
